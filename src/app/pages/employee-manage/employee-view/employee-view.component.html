@@ -1,0 +1,342 @@
+<div class="modal-header">
+  <h4 class="modal-title">員工資料</h4>
+  <button type="button" class="btn btn-tool" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <i class="fas fa-times"></i>
+  </button>
+</div>
+
+<div class="modal-body">
+  <form class="form-horizontal" [formGroup]="ViewForm" method="post" action="">
+    <div class="card">
+      <div class="card-header">
+        <h5 class="card-title mt-2">主要資料</h5>
+        <div class="card-tools">
+          <button type="button" class="btn bnt-tool" data-card-widget="collapse">
+            <i class="fas fa-minus"></i>
+          </button>
+        </div>
+      </div>
+      <!-- /.card-header -->
+      <div class="card-body" style="display: block;">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group">
+              <label><code>*</code>員工編號</label>
+              <input type="text" formControlName="account" class="form-control" readonly>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label><code>*</code>密碼</label>
+              <input type="password" formControlName="password" class="form-control" readonly>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label><code>*</code>姓名</label>
+              <input type="text" formControlName="empName" class="form-control" readonly>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group">
+              <label><code>*</code>身分證字號</label>
+              <input type="text" formControlName="personalNo" class="form-control" readonly>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label><code>*</code>性別</label>
+              <select #selectGender class="form-control" formControlName="gender"
+                disabled>
+                <option value="true">男</option>
+                <option value="false">女</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label><code>*</code>生日</label>
+              <input type="date" formControlName="birthday" class="form-control" readonly>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group">
+              <label><code>*</code>公司信箱</label>
+              <input type="text" formControlName="email" class="form-control" readonly>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label><code>*</code>部門</label>
+              <select #selectParentgetdepartments class="form-control"
+                formControlName="departmentId" disabled>
+                <option value="">請選擇部門</option>
+                <option *ngFor="let item of Parentgetdepartments" [value]="item.id">
+                  {{item.name}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label><code>*</code>職務</label>
+              <ng-select2 [data]="s2Jobs" [width]="'100%'" [value]="Jobs" [placeholder]="'請選擇功能職務'"
+                (valueChanged)="onChange_Jobs($event)" [disabled]="true" [allowClear]="true">
+              </ng-select2>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group">
+              <label><code>*</code>到職日</label>
+              <input type="date" formControlName="onBoardDate" class="form-control" readonly>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="form-group">
+              <br>
+              <label>
+                <input type="checkbox" [value]="true" formControlName="boss" disabled>
+                是否為主管
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <!-- <div class="col-md-4">
+            <div class="form-group">
+              <label>到期日期</label>
+              <input type="date" [formControl]="expireDate" class="form-control" readonly>
+            </div>
+          </div> -->
+          <div class="col-md-4">
+            <div class="form-group">
+              <label>印章電子檔上傳(建議尺寸 200x200px)</label>
+              <div class="input-group">
+                <div class="custom-file">
+                  <input #fileUpload2 type="file" class="custom-file-input" accept=".jpg,.png" disabled>
+                  <label class="custom-file-label" for="fileUpload2">{{fileName2 ? fileName2 : '請上傳檔案'}}</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <img id="Img" [src]="this.imgsrc2" style="max-width: 100%;" />
+          </div>
+        </div>
+      </div>
+      <!-- /.card-body -->
+    </div>
+  </form>
+  <div class="card">
+    <div class="card-header">
+      <h5 class="card-title mt-2">其他資料</h5>
+      <div class="card-tools">
+        <button type="button" class="btn bnt-tool" data-card-widget="collapse">
+          <i class="fas fa-minus"></i>
+        </button>
+      </div>
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body" style="display: block;">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group">
+            <label>個人照上傳(建議尺寸 300x300px)</label>
+            <div class="input-group">
+              <div class="custom-file">
+                <input #fileUpload type="file" class="custom-file-input" accept=".jpg,.png"
+                  (change)="fileSelected($event)" disabled>
+                <label class="custom-file-label" for="fileUpload">{{fileName ? fileName : '請上傳檔案'}}</label>
+              </div>
+            </div>
+            <br>
+
+            <img *ngIf="this.imgsrc === '' && EmployePicBuffer === undefined" src="assets/img/198930468-47ea8747-19d6-4c3a-b93e-b706a83277e9.png" style="max-width: 100%;">
+            <img id="Img" [src]="EmployePicBuffer || this.imgsrc" style="max-width: 100%;" />
+          </div>
+        </div>
+        <div class="col-md-8">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>聯絡電話</label>
+                <input type="text" [formControl]="phone" class="form-control" readonly>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>聯絡地址</label>
+                <input type="text" [formControl]="address" class="form-control" readonly>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>專長</label>
+                <input type="text" [formControl]="expertise" class="form-control" readonly>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>興趣</label>
+                <input type="text" [formControl]="interest" class="form-control" readonly>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <form class="form-horizontal" id="EmergencyContactForm">
+        <div #contact>
+          <div class="row">
+            <div class="col-md-12">
+              <button type="button" class="btn btn-info float-right" (click)="addEmergencyContact()" disabled>
+                <i class="fas fa-plus"></i> 緊急連絡人
+              </button>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4"> <label><code>*</code>緊急聯絡人</label> </div>
+            <div class="col-md-3"> <label>關係</label> </div>
+            <div class="col-md-4"> <label>聯絡電話</label> </div>
+            <div class="col-md-1"> </div>
+          </div>
+          <div class="row" *ngFor="let item of contactList let index=index;" id="e_{{index}}">
+            <div class="col-md-4">
+              <div class="form-group">
+
+                <input type="text" class="form-control" name="EmergencyContact[{{index}}].contactName"
+                  [value]="item.contactName" readonly>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+
+                <input type="text" class="form-control" name="EmergencyContact[{{index}}].relationship"
+                  [value]="item.relationship" readonly>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+
+                <input type="text" class="form-control" name="EmergencyContact[{{index}}].contactPhone"
+                  [value]="item.contactPhone" readonly>
+              </div>
+            </div>
+            <div class="col-md-1">
+              <div class="form-group">
+                <button type="button" class="btn btn-tool text-danger" data-toggle="tooltip" title="刪除"
+                  (click)="del('e', index)" disabled>
+                  <i class="fas fa-trash-alt"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+      <!-- /.card-body -->
+    </div>
+  </div>
+  <form class="form-horizontal" id="LicenseForm">
+    <div class="card">
+      <div class="card-header">
+        <h5 class="card-title mt-2">證照資料</h5>
+        <div class="card-tools">
+          <button type="button" class="btn btn-info" (click)="addLicense()" disabled>
+            <i class="fas fa-plus"></i> 增加
+          </button>
+          <button type="button" class="btn bnt-tool " data-card-widget="collapse">
+            <i class="fas fa-minus"></i>
+          </button>
+
+        </div>
+      </div>
+      <!-- /.card-header -->
+      <div #license class="card-body" style="display: block;">
+        <div class="row">
+          <div class="col-md-2"> <label><code>*</code>類別</label> </div>
+          <div class="col-md-2"> <label><code>*</code>證照名稱</label> </div>
+          <div class="col-md-3"> <label><code>*</code>予以公司使用</label> </div>
+          <div class="col-md-2"> <label><code>*</code>是否回訓</label></div>
+          <div class="col-md-2"> <label>下次回訊日</label></div>
+          <div class="col-md-1"></div>
+        </div>
+        <div class="row" *ngFor="let item of licenseList let index=index;" id="l_{{index}}">
+          <div class="col-md-2">
+            <div class="form-group">
+              <select #selectParentgetlicenseTypes class="form-control"
+                name="License[{{index}}].licenseType" disabled>
+                <option value="">請選擇類別</option>
+                <option *ngFor="let items of ParentgetlicenseTypes" [value]="items.id"
+                  [selected]="items.id === item['licenseTypeId']">
+                  {{items.name}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="form-group">
+              <input type="text" class="form-control" name="License[{{index}}].licenseName" [value]="item.licenseName" readonly>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <div class="custom-control custom-radio">
+                <input class="custom-control-input" type="radio" id="License[{{index}}].customRadio1_0"
+                  name="License[{{index}}].approveUse" value="true" [checked]="item.approveUse === true" disabled>
+                <label for="License[{{index}}].customRadio1_0" class="custom-control-label">同意</label>
+              </div>
+              <div class="custom-control custom-radio">
+                <input class="custom-control-input" type="radio" id="License[{{index}}].customRadio1_1"
+                  name="License[{{index}}].approveUse" value="false" [checked]="item.approveUse === false" disabled>
+                <label for="License[{{index}}].customRadio1_1" class="custom-control-label">不同意</label>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="form-group">
+              <div class="custom-control custom-radio">
+                <input class="custom-control-input" type="radio" id="License[{{index}}].customRadio2_0"
+                  name="License[{{index}}].needTrain" value="true" [checked]="item.needTrain === true" disabled>
+                <label for="License[{{index}}].customRadio2_0" class="custom-control-label">需要</label>
+              </div>
+              <div class="custom-control custom-radio">
+                <input class="custom-control-input" type="radio" id="License[{{index}}].customRadio2_1"
+                  name="License[{{index}}].needTrain" value="false" [checked]="item.needTrain === false" disabled>
+                <label for="License[{{index}}].customRadio2_1" class="custom-control-label">不需要</label>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <!-- Date -->
+            <div class="form-group">
+              <input type="date" name="License[{{index}}].nextTrainDate" class="form-control"
+                [value]="item.nextTrainDate" disabled>
+            </div>
+          </div>
+          <div class="col-md-1">
+            <div class="form-group">
+              <button type="button" class="btn btn-tool text-danger" data-toggle="tooltip" title="刪除"
+                (click)="del('l', index)" disabled>
+                <i class="fas fa-trash-alt"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- /.card-body -->
+      </div>
+    </div>
+  </form>
+
+
+  <div class="modal-footer justify-content-between">
+    <button type="button" class="btn btn-default" (click)="viewEmployee()">Close</button>
+    <button type="button" class="btn btn-info" (click)="viewEmployee()">確定</button>
+  </div>

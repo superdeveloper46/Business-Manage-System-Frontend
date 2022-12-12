@@ -1,0 +1,36 @@
+<div class="modal-header">
+  <h4 class="modal-title">修改專案階段</h4>
+  <button type="button" class="btn btn-tool" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <i class="fas fa-times"></i>
+  </button>
+</div>
+<div class="modal-body">
+  <form class="form-horizontal" [formGroup]="EditForm"  method="post" action="">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label><code>*</code>階段號碼(順序)</label>
+          <input type="text" formControlName="stepNo" class="form-control">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label><code>*</code>階段名稱</label>
+          <input type="text" formControlName="stepName" class="form-control">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group">
+          <label>階段icon css class</label>
+          <input type="text" formControlName="stepClass" class="form-control">
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <div class="modal-footer justify-content-between">
+    <button type="button" class="btn btn-default" (click)="activeModal.close('Close click')">Close</button>
+    <button type="button" class="btn btn-info" (click)="editProjectStep()">確定</button>
+  </div>

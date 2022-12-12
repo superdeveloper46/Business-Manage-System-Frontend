@@ -1,0 +1,62 @@
+<div class="modal-header">
+  <h4 class="modal-title">流程明細</h4>
+  <button type="button" class="btn btn-tool" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <i class="fas fa-times"></i>
+  </button>
+</div>
+<div class="modal-body">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="btn-group">
+        <button type="button" class="btn btn-info" [ngClass]="TabActive1 ? 'active' : ''"
+          (click)="changeTab(1)">採發</button>
+        <button type="button" class="btn btn-info" [ngClass]="TabActive2 ? 'active' : ''"
+          (click)="changeTab(2)">計價</button>
+        <button type="button" class="btn btn-info" [ngClass]="TabActive3 ? 'active' : ''"
+          (click)="changeTab(3)">追加減</button>
+        <button type="button" class="btn btn-info" [ngClass]="TabActive4 ? 'active' : ''"
+          (click)="changeTab(4)">業主請款</button>
+      </div>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-md-12">
+      <div [ngClass]="TabActive1 ? 'tabShow' : 'tabHide'">
+        <div class="callout callout-info">
+          <h5>{{Title1}}</h5>
+          <div id="stepbar1">
+          </div>
+        </div>
+      </div>
+      <div [ngClass]="TabActive2 ? 'tabShow' : 'tabHide'">
+        <div class="callout callout-info">
+          <h5>{{Title2}}</h5>
+          <div id="stepbar2">
+          </div>
+        </div>
+      </div>
+      <div [ngClass]="TabActive3 ? 'tabShow' : 'tabHide'">
+        <div class="callout callout-info">
+          <h5>{{Title3}}</h5>
+          <div id="stepbar3">
+          </div>
+        </div>
+      </div>
+
+      <div [ngClass]="TabActive4 ? 'tabShow' : 'tabHide'">
+        <div class="callout callout-info">
+          <h5>{{Title4}}</h5>
+          <div id="stepbar4">
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+  <br>
+  <div class="modal-footer justify-content-between">
+    <button type="button" class="btn btn-default" (click)="activeModal.close('Close click')">Close</button>
+  </div>
+  <script src="assets/js/script.js"></script>

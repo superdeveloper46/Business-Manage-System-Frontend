@@ -1,0 +1,63 @@
+<div #license class="card-body" style="display: block;    margin-top: -2.25rem">
+  <div class="row" id="l_{{k}}">
+    <div class="col-md-2">
+      <input type="hidden" name="License[{{k}}]._id">
+      <div class="form-group">
+        <select #selectParentgetlicenseTypes class="form-control"
+          name="License[{{k}}].licenseTypeId">
+          <option value="">請選擇類別</option>
+          <option *ngFor="let items of ParentgetlicenseTypes" [value]="items.id">
+            {{items.name}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-md-2">
+      <div class="form-group">
+        <input type="text" class="form-control" name="License[{{k}}].licenseName">
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="form-group">
+        <div class="custom-control custom-radio">
+          <input class="custom-control-input" type="radio" id="License[{{k}}].customRadio1_0"
+            name="License[{{k}}].approveUse" value="true" checked>
+          <label for="License[{{k}}].customRadio1_0" class="custom-control-label">同意</label>
+        </div>
+        <div class="custom-control custom-radio">
+          <input class="custom-control-input" type="radio" id="License[{{k}}].customRadio1_1"
+            name="License[{{k}}].approveUse" value="false">
+          <label for="License[{{k}}].customRadio1_1" class="custom-control-label">不同意</label>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-2">
+      <div class="form-group">
+        <div class="custom-control custom-radio">
+          <input class="custom-control-input" type="radio" id="License[{{k}}].customRadio2_0"
+            name="License[{{k}}].needTrain" value="true" checked>
+          <label for="License[{{k}}].customRadio2_0" class="custom-control-label">需要</label>
+        </div>
+        <div class="custom-control custom-radio">
+          <input class="custom-control-input" type="radio" id="License[{{k}}].customRadio2_1"
+            name="License[{{k}}].needTrain" value="false">
+          <label for="License[{{k}}].customRadio2_1" class="custom-control-label">不需要</label>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-2">
+      <!-- Date -->
+      <div class="form-group">
+        <input type="date" name="License[{{k}}].nextTrainDate" class="form-control">
+      </div>
+    </div>
+    <div class="col-md-1">
+      <div class="form-group">
+        <button type="button" class="btn btn-tool text-danger" data-toggle="tooltip" title="刪除"
+          (click)="del(k)">
+          <i class="fas fa-trash-alt"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+  <!-- /.card-body -->
+</div>

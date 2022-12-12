@@ -1,0 +1,94 @@
+<div class="modal-header">
+    <h4 class="modal-title">Add purchase form</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.close('Close click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <form [formGroup]="purchaseFormSection">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>*工程名稱</label>
+                    <input type="text" formControlName="projectName" class="form-control" placeholder="工程名稱">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>*工項名稱</label>
+                    <ng-select2
+                        width="100%"
+                        placeholder="工項名稱"
+                        formControlName="workTypeId"
+                        >
+                        <option *ngFor="let data of workTypeList" [value]="data._id">{{data.workTypeName}}</option>
+                    </ng-select2>
+                </div>
+            </div>
+         </div>
+         <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>*請採速別</label>
+                    <ng-select2
+                        width="100%"
+                        placeholder="請採速別"
+                        formControlName="emergencyTypeId"
+                        (valueChanged)="purchaseDeadLineChange($event)"
+                        >
+                        <option *ngFor="let data of emergencyTypeList" [value]="data._id">{{data.emergencyName}}</option>
+                    </ng-select2>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>*工項預計開始日</label>
+                    <div class="input-group">  
+                        <input class="form-control" (focusout)="purchaseDeadLineChange(emergencyTypeId)" type="date" formControlName="workBeginTime">  
+                    </div>
+                </div>
+            </div>
+         </div>
+         <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>*工項預計結束日</label>
+                    <div class="input-group">  
+                        <input class="form-control" type="date" formControlName="workEndTime">  
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>*請採期限</label>
+                    <input type="date" formControlName="purchaseDeadLine" class="form-control" placeholder="請採期限">
+                </div>
+            </div>
+         </div>
+         <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>推薦廠商</label>
+                    <ng-select2
+                        width="100%"
+                        placeholder="請採速別"
+                        formControlName="recommendSupplierId"
+                        >
+                        <option *ngFor="let data of recommendSupplierList" [value]="data._id">{{data.supplierName}}</option>
+                    </ng-select2>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>推薦金額</label>
+                    <input type="number" formControlName="supplierAmount" class="form-control" placeholder="推薦金額" >
+                </div>
+            </div>
+         </div>
+    </form>
+</div>
+
+<div class="modal-footer justify-content-between">
+    <button type="button" class="btn btn-default btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
+    <button class="btn btn-info" (click)="savePurchaseForm('add')">Confirm</button>
+</div>

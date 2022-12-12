@@ -1,0 +1,784 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1 >{{projectShortName}} 施工日誌</h1>
+      </div>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a [routerLink]="['/']" href="/">Home</a></li>
+          <li class="breadcrumb-item active">施工日誌</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+  <!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+  <!-- Default box -->
+  <div class="container-fluid">
+
+    <form class="form-horizontal" [formGroup]="EditForm1" method="post" action="">
+      <div class="card" style="background-color: #bfedbc;">
+        <div class="card-header">
+          <h5 class="card-title mt-2">公共工程施工日誌</h5>
+          <div class="card-tools">
+            <!-- <button type="button" *ngIf="!btnShow1 && this.RightObj['edit']" class="btn btn-info"  (click)="enableCard(1)">
+              編輯
+            </button>
+            <button type="button" *ngIf="btnShow1 && this.RightObj['edit']" class="btn btn-info">
+              儲存
+            </button> -->
+          </div>
+        </div>
+
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>今日填報</label>
+                <input type="date" formControlName="dailyDate" name="dailyDate" data-label="今日填報"
+                  class="form-control  updateDataByColumn">
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>上午天氣</label>
+                <input type="text" formControlName="morningWeather" name="morningWeather" data-label="上午天氣"
+                  class="form-control  updateDataByColumn">
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>下午天氣</label>
+                <input type="text" formControlName="afternoonWeather" name="afternoonWeather" data-label="下午天氣"
+                  class="form-control  updateDataByColumn">
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>專案期限</label>
+                <input type="text" class="form-control" formControlName="projectDate" readonly>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>承攬廠商</label>
+                <input type="text" formControlName="company" name="company" data-label="承攬廠商"
+                  class="form-control  updateDataByColumn">
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>契約工期(日曆天)</label>
+                <input type="text" class="form-control" formControlName="calendarDay" readonly>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>累計工期</label>
+                <input type="text" class="form-control" formControlName="cumulativeDay" readonly>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>剩餘工期</label>
+                <input type="text" class="form-control" formControlName="remainingDay" readonly>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="row">
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>契約變更次數</label>
+                <input type="number" formControlName="contractChange" name="contractChange" data-label="契約變更次數"
+                  class="form-control  updateDataByColumn">
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>工期展延天數</label>
+                <input type="number" formControlName="extendDays" name="extendDays" data-label="工期展延天數"
+                  class="form-control  updateDataByColumn">
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>原契約金額</label>
+                <input  type="number" class="form-control" formControlName="bidAmount" readonly>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>變更後契約金額</label>
+                <input type="number" class="form-control" formControlName="changePrice" readonly>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>當日預定完成%</label>
+                <input type="number" formControlName="expectComplete" name="expectComplete" data-label="當日預定完成%"
+                  class="form-control  updateDataByColumn">
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>當日實際完成%</label>
+                <input type="number" formControlName="actualComplete" name="actualComplete" data-label="當日實際完成%"
+                  class="form-control  updateDataByColumn">
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>累計預定完成%</label>
+                <input type="number" class="form-control  ">
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>累計實際完成%</label>
+                <input type="number" class="form-control  ">
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>依施工計畫書執行按圖施工概況（含約定之重要施工項目及完成數量等）</label>
+                <textarea formControlName="dailyConcept" name="dailyConcept" data-label="依施工計畫書執行按圖施工概況"
+                  class="form-control  updateDataByColumn"></textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="row bg-light">
+            <div class="col-md-12 mb-2">
+              <button type="button" class="btn btn-info float-sm-right card1" (click)="AddCard(1)">
+                <i class="fas fa-plus"></i> 新增
+              </button>
+            </div>
+            <div class="col-md-12">
+              <div #SpecialConstractionList>
+                <div class="row">
+                  <div class="col-md-3"> <label>項次名稱</label></div>
+                  <div class="col-md-1"> <label>單位</label></div>
+                  <div class="col-md-2"> <label>契約數量</label></div>
+                  <div class="col-md-2"> <label>本日使用數量</label></div>
+                  <div class="col-md-2"> <label>累計使用數量</label></div>
+                  <div class="col-md-1"> <label>備註</label></div>
+                  <div class="col-md-1"> <label>刪除</label></div>
+                </div>
+                <div class="row" *ngFor="let item of specialConstractionList let index=index;" id="s_{{index}}">
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <input type="text" name="specialConstractionList[{{index}}].itemName"
+                        [value]="item.itemName" class="form-control updateDataByColumn updateDataByListColumn"
+                        data-label="營造業專業工程特定施工清單{{index+1}}:項次名稱" data-subdocName="specialConstractionList"
+                        data-subdocId="{{item._id}}">
+                    </div>
+                  </div>
+                  <div class="col-md-1">
+                    <div class="form-group">
+                      <input type="text" name="specialConstractionList[{{index}}].unit"
+                        [value]="item.unit" class="form-control  updateDataByColumn updateDataByListColumn"
+                        data-label="營造業專業工程特定施工清單{{index+1}}:單位" data-subdocName="specialConstractionList"
+                        data-subdocId="{{item._id}}">
+                    </div>
+                  </div>
+                  <div class="col-md-2">
+                    <div class="form-group">
+                      <input type="text" name="specialConstractionList[{{index}}].quantity"
+                        [value]="item.quantity" class="form-control  updateDataByColumn updateDataByListColumn"
+                        data-label="營造業專業工程特定施工清單{{index+1}}:契約數量" data-subdocName="specialConstractionList"
+                        data-subdocId="{{item._id}}">
+                    </div>
+                  </div>
+                  <div class="col-md-2">
+                    <div class="form-group">
+                      <input type="text" name="specialConstractionList[{{index}}].todayUse"
+                        [value]="item.todayUse" class="form-control  updateDataByColumn updateDataByListColumn"
+                        data-label="營造業專業工程特定施工清單{{index+1}}:本日使用數量" data-subdocName="specialConstractionList"
+                        data-subdocId="{{item._id}}">
+                    </div>
+                  </div>
+                  <div class="col-md-2">
+                    <div class="form-group">
+                      <input type="text" name="specialConstractionList[{{index}}].cumulativeuse"
+                        [value]="item.cumulativeuse" class="form-control  updateDataByColumn updateDataByListColumn"
+                        data-label="營造業專業工程特定施工清單{{index+1}}:累計使用數量" data-subdocName="specialConstractionList"
+                        data-subdocId="{{item._id}}">
+                    </div>
+                  </div>
+                  <div class="col-md-1">
+                    <div class="form-group">
+                      <input type="text" name="specialConstractionList[{{index}}].remark"
+                        [value]="item.remark" class="form-control  updateDataByColumn updateDataByListColumn"
+                        data-label="營造業專業工程特定施工清單{{index+1}}:備註" data-subdocName="specialConstractionList"
+                        data-subdocId="{{item._id}}">
+                    </div>
+                  </div>
+                  <div class="col-md-1">
+                    <div class="form-group">
+                      <button type="button" class="btn btn-tool text-danger card1" data-toggle="tooltip" title="刪除"
+                        (click)="del(index,'s',item._id)">
+                        <i class="fas fa-trash-alt"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <br>
+
+          <div class="row bg-light">
+            <div class="col-md-12 mb-2">
+              工地材料管理概況(含約定之重要材料使用狀況及數量等)
+              <button type="button" class="btn btn-info float-sm-right card1" (click)="AddCard(2)">
+                <i class="fas fa-plus"></i> 新增
+              </button>
+            </div>
+            <div class="col-md-12">
+              <div #MaterialManageList>
+                <div class="row">
+                  <div class="col-md-3"> <label>項目</label></div>
+                  <div class="col-md-1"> <label>單位</label></div>
+                  <div class="col-md-2"> <label>契約數量</label></div>
+                  <div class="col-md-2"> <label>本日使用數量</label></div>
+                  <div class="col-md-2"> <label>累計使用數量</label></div>
+                  <div class="col-md-1"> <label>備註</label></div>
+                  <div class="col-md-1"> <label>刪除</label></div>
+                </div>
+                <div class="row" *ngFor="let item of materialManageList let index=index;" id="m_{{index}}">
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <input type="text" name="materialManageList[{{index}}].itemName"
+                        [value]="item.itemName" class="form-control updateDataByColumn updateDataByListColumn"
+                        data-label="工地材料管理概況{{index+1}}:項次名稱" data-subdocName="materialManageList"
+                        data-subdocId="{{item._id}}">
+                    </div>
+                  </div>
+                  <div class="col-md-1">
+                    <div class="form-group">
+                      <input type="text" name="materialManageList[{{index}}].unit" [value]="item.unit"
+                        class="form-control  updateDataByColumn updateDataByListColumn"
+                        data-label="工地材料管理概況{{index+1}}:單位" data-subdocName="materialManageList"
+                        data-subdocId="{{item._id}}">
+                    </div>
+                  </div>
+                  <div class="col-md-2">
+                    <div class="form-group">
+                      <input type="text" name="materialManageList[{{index}}].quantity"
+                        [value]="item.quantity" class="form-control  updateDataByColumn updateDataByListColumn"
+                        data-label="工地材料管理概況{{index+1}}:契約數量" data-subdocName="materialManageList"
+                        data-subdocId="{{item._id}}">
+                    </div>
+                  </div>
+                  <div class="col-md-2">
+                    <div class="form-group">
+                      <input type="text" name="materialManageList[{{index}}].todayUse"
+                        [value]="item.todayUse" class="form-control  updateDataByColumn updateDataByListColumn"
+                        data-label="工地材料管理概況{{index+1}}:本日使用數量" data-subdocName="materialManageList"
+                        data-subdocId="{{item._id}}">
+                    </div>
+                  </div>
+                  <div class="col-md-2">
+                    <div class="form-group">
+                      <input type="text" name="materialManageList[{{index}}].cumulativeuse"
+                        [value]="item.cumulativeuse" class="form-control  updateDataByColumn updateDataByListColumn"
+                        data-label="工地材料管理概況{{index+1}}:累計使用數量" data-subdocName="materialManageList"
+                        data-subdocId="{{item._id}}">
+                    </div>
+                  </div>
+                  <div class="col-md-1">
+                    <div class="form-group">
+                      <input type="text" name="materialManageList[{{index}}].remark"
+                        [value]="item.remark" class="form-control  updateDataByColumn updateDataByListColumn"
+                        data-label="工地材料管理概況{{index+1}}:備註" data-subdocName="materialManageList"
+                        data-subdocId="{{item._id}}">
+                    </div>
+                  </div>
+                  <div class="col-md-1">
+                    <div class="form-group">
+                      <button type="button" class="btn btn-tool text-danger card1" data-toggle="tooltip" title="刪除"
+                        (click)="del(index,'m',item._id)">
+                        <i class="fas fa-trash-alt"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <br>
+
+          <div class="row">
+            <div class="col-md-12 mb-2">
+              工地人員及機具管理（含約定之出工人數及機具使用情形及數量）
+            </div>
+            <div class="col-md-12">
+              <div class="row">
+                <div class="col-md-6">
+                  <table class="table table-bordered table-striped">
+                    <thead>
+                      <tr>
+                        <table width="100%">
+                          <tr>
+                            <th width="20%">工別</th>
+                            <th width="20%">本日人數</th>
+                            <th width="20%">累計人數</th>
+                          </tr>
+                        </table>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let item2 of sourceLogTypeDetailList;">
+                        <div *ngIf="!item2.constructionType">
+                          <table *ngFor="let item of logTypeDetailList ; let index=index;" width="100%">
+                            <tr *ngIf="item.constructionLogTypeId===item2._id">
+                              <td width="20%">{{item2.constructionLogTypeName}}</td>
+                              <td width="20%">
+                                <input type="number" name="logTypeDetailList.todayCount" [value]="item.todayCount"
+                                  class="form-control  updateDataByColumn updateDataByListColumn"
+                                  data-label="{{item2.constructionLogTypeName}}:本日人數"
+                                  data-subdocName="logTypeDetailList" data-subdocId="{{item._id}}">
+                              </td>
+                              <td width="20%">
+                                <input type="number" name="logTypeDetailList.cumulativeCount"
+                                  [value]="item.cumulativeCount"
+                                  class="form-control  updateDataByColumn updateDataByListColumn"
+                                  data-label="{{item2.constructionLogTypeName}}:累計人數"
+                                  data-subdocName="logTypeDetailList" data-subdocId="{{item._id}}">
+                              </td>
+                            </tr>
+
+                          </table>
+                        </div>
+                      </tr>
+                    </tbody>
+                    <tfoot>
+                    </tfoot>
+                  </table>
+                </div>
+                <div class="col-md-6">
+                  <table class="table table-bordered table-striped">
+                    <thead>
+                      <tr>
+                        <table width="100%">
+                          <tr>
+                            <th width="20%">工別</th>
+                            <th width="20%">本日人數</th>
+                            <th width="20%">累計人數</th>
+                          </tr>
+                        </table>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let item2 of sourceLogTypeDetailList;">
+                        <div *ngIf="item2.constructionType">
+                          <table *ngFor="let item of logTypeDetailList ; let index=index;" width="100%">
+                            <tr *ngIf="item.constructionLogTypeId===item2._id">
+                              <td width="20%">{{item2.constructionLogTypeName}}</td>
+                              <td width="20%">
+                                <input type="number" name="logTypeDetailList.todayCount" [value]="item.todayCount"
+                                  class="form-control  updateDataByColumn updateDataByListColumn"
+                                  data-label="{{item2.constructionLogTypeName}}:本日人數"
+                                  data-subdocName="logTypeDetailList" data-subdocId="{{item._id}}">
+                              </td>
+                              <td width="20%">
+                                <input type="number" name="logTypeDetailList.cumulativeCount"
+                                  [value]="item.cumulativeCount"
+                                  class="form-control  updateDataByColumn updateDataByListColumn"
+                                  data-label="{{item2.constructionLogTypeName}}:累計人數"
+                                  data-subdocName="logTypeDetailList" data-subdocId="{{item._id}}">
+                              </td>
+                            </tr>
+
+                          </table>
+                        </div>
+                      </tr>
+                    </tbody>
+                    <tfoot>
+                    </tfoot>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <div class="custom-control custom-checkbox">
+                  <input class="custom-control-input updateDataByColumn" type="checkbox" id="customCheckbox1"
+                    [value]="true" formControlName="isProfessional" name="isProfessional"
+                    data-label="本日施工項目符合「營造業專業工程特定施工項目應置之技術士總類、比率或人數標準表」規定應設置技術士之專案工程">
+                  <label for="customCheckbox1"
+                    class="custom-control-label">本日施工項目符合「營造業專業工程特定施工項目應置之技術士總類、比率或人數標準表」規定應設置技術士之專案工程</label>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="custom-control custom-checkbox">
+                  <input class="custom-control-input updateDataByColumn" type="checkbox" id="customCheckbox2"
+                    [value]="true" formControlName="isEducation" name="isEducation"
+                    data-label="施工前有實施勤前教育(含工地預防災變及危害告知)">
+                  <label for="customCheckbox2" class="custom-control-label">施工前有實施勤前教育(含工地預防災變及危害告知)</label>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="custom-control custom-checkbox">
+                  <input class="custom-control-input updateDataByColumn" type="checkbox" id="customCheckbox3"
+                    [value]="true" formControlName="isInsurance" name="isInsurance"
+                    data-label="施工前有確認新進勞工是否提報勞工保險(或其他商業保險)資料及安全衛生教育訓練紀錄">
+                  <label for="customCheckbox3"
+                    class="custom-control-label">施工前有確認新進勞工是否提報勞工保險(或其他商業保險)資料及安全衛生教育訓練紀錄</label>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="custom-control custom-checkbox">
+                  <input class="custom-control-input updateDataByColumn" type="checkbox" id="customCheckbox4"
+                    [value]="true" formControlName="isProtect" name="isProtect" data-label="施工前有檢查勞工個人防護具">
+                  <label for="customCheckbox4" class="custom-control-label">施工前有檢查勞工個人防護具</label>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="custom-control custom-checkbox">
+                  <input class="custom-control-input updateDataByColumn" type="checkbox" id="customCheckbox5"
+                    [value]="true" formControlName="isDayNightCheck" name="isDayNightCheck"
+                    data-label="交通維持設施完成日間及夜間巡查">
+                  <label for="customCheckbox5" class="custom-control-label">交通維持設施完成日間及夜間巡查</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>施工取樣試驗紀錄</label>
+                <textarea type="text" name="sampleTestRecord" data-label="施工取樣試驗紀錄"
+                  class="form-control  updateDataByColumn" formControlName="sampleTestRecord"></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>通知協力廠商辦理事項</label>
+                <textarea type="text" name="tellSupplier" data-label="通知協力廠商辦理事項"
+                  class="form-control  updateDataByColumn" formControlName="tellSupplier"></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>重要事項紀錄（含主辦機關及監造單位指示、工地遇緊急異常狀況及需解決施工技術問題之通報處理情形、施工要徑、進度落後原因及因應對策等）</label>
+                <textarea type="text" name="importantReport" data-label="重要事項紀錄"
+                  class="form-control  updateDataByColumn" formControlName="importantReport"></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /.card-body -->
+      </div>
+    </form>
+
+    <form class="form-horizontal" [formGroup]="EditForm2" method="post" action="">
+      <div class="card" style="background-color: #bde0fb;">
+        <div class="card-header">
+          <h5 class="card-title mt-2">每日施工日誌</h5>
+          <div class="card-tools">
+            <!-- <button type="button" *ngIf="!btnShow2 && this.RightObj['update'] " class="btn btn-info"  (click)="enableCard(2)">
+              編輯
+             </button>
+             <button type="button" *ngIf="btnShow2 && this.RightObj['update']" class="btn btn-info">
+               儲存
+             </button> -->
+          </div>
+        </div>
+
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>工務的出勤狀況</label>
+                <textarea formControlName="attendSituation" name="attendSituation" data-label="工務的出勤狀況"
+                  class="form-control updateDataByColumn"></textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="row bg-light">
+            <div class="col-md-12 mb-2">
+              <button type="button" class="btn btn-info float-sm-right updateDataByColumn" (click)="AddCard(3)">
+                <i class="fas fa-plus"></i> 新增
+              </button>
+            </div>
+            <div class="col-md-12">
+              <div #SupplierContractList>
+                <div class="row">
+                  <div class="col-md-3"> <label>選擇廠商</label></div>
+                  <div class="col-md-3"> <label>選擇工項</label></div>
+                  <div class="col-md-3"> <label>出工人數</label></div>
+                  <div class="col-md-2"> <label>出工狀態</label></div>
+                  <div class="col-md-1"> <label>刪除</label></div>
+                </div>
+                <div class="row" *ngFor="let item of supplierContractList let index=index;" id="s2_{{index}}">
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <ng-select2 [data]="s2Suppliers" [width]="'100%'" [placeholder]="'請選擇'" [value]="item.supplierId"
+                        (valueChanged)="onChange_Suppliers($event,index,item._id)" [allowClear]="true" name="supplierContractList[{{index}}].supplierId" class="updateDataByColumn updateDataByListColumn" data-label="營造業專業工程特定施工清單{{index+1}}:選擇廠商" data-subdocName="supplierContractList"
+                        data-subdocId="{{item._id}}">
+                      </ng-select2>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <ng-select2 [data]="s2WorkTypes" [width]="'100%'" [placeholder]="'請選擇'" [value]="item.workTypeId"
+                        (valueChanged)="onChange_WorkTypes($event,index,item._id)" [allowClear]="true"  name="supplierContractList[{{index}}].workTypeId" class="updateDataByColumn updateDataByListColumn" data-label="營造業專業工程特定施工清單{{index+1}}:工項" data-subdocName="supplierContractList"
+                        data-subdocId="{{item._id}}">
+                      </ng-select2>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <input type="number" name="supplierContractList[{{index}}].workers"
+                      [value]="item.workers" class="form-control  updateDataByColumn updateDataByListColumn"
+                      data-label="營造業專業工程特定施工清單{{index+1}}:出工人數" data-subdocName="supplierContractList"
+                      data-subdocId="{{item._id}}">
+                    </div>
+                  </div>
+                  <div class="col-md-2">
+                    <div class="form-group">
+                      <input type="text" name="supplierContractList[{{index}}].workStatus"
+                      [value]="item.workStatus" class="form-control  updateDataByColumn updateDataByListColumn"
+                      data-label="營造業專業工程特定施工清單{{index+1}}:出工狀態" data-subdocName="supplierContractList"
+                      data-subdocId="{{item._id}}">
+                    </div>
+                  </div>
+                  <div class="col-md-1">
+                    <div class="form-group">
+                      <button type="button" class="btn btn-tool text-danger updateDataByColumn" data-toggle="tooltip"
+                        title="刪除" (click)="del(index,'s2',item._id)">
+                        <i class="fas fa-trash-alt"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>本日施做工項</label>
+                <textarea type="text" class="form-control updateDataByColumn" formControlName="todayItem"
+                  name="todayItem" data-label="本日施做工項"></textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>明日預計施做工項</label>
+                <textarea type="text" class="form-control updateDataByColumn" formControlName="tomorrowItem"
+                  name="tomorrowItem" data-label="明日預計施做工項"></textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>上級提醒注意事項</label>
+                <textarea type="text" class="form-control updateDataByColumn" formControlName="bossSuggest"
+                  name="bossSuggest" data-label="上級提醒注意事項"></textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>介面整合檢討事項</label>
+                <textarea type="text" class="form-control updateDataByColumn" formControlName="integrationReview"
+                  name="integrationReview" data-label="介面整合檢討事項"></textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>本日工班工法待解決問題或需公司協助事項</label>
+                <textarea type="text" class="form-control updateDataByColumn" formControlName="waitToSlove"
+                  name="waitToSlove" data-label="本日工班工法待解決問題或需公司協助事項"></textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <div class="custom-control custom-checkbox">
+                  <input class="custom-control-input updateDataByColumn" type="checkbox" id="customCheckbox6"
+                    [value]="true" formControlName="isNewTeam" name="isNewTeam" data-label="本日新工班進場">
+                  <label for="customCheckbox6" class="custom-control-label">本日新工班進場</label>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="custom-control custom-checkbox">
+                  <input class="custom-control-input updateDataByColumn" type="checkbox" id="customCheckbox7"
+                    [value]="true" formControlName="isRead" name="isRead" data-label="工地導讀合約">
+                  <label for="customCheckbox7" class="custom-control-label">工地導讀合約</label>
+                </div>
+              </div>
+
+              <label>圖說管理</label>
+              <div class="form-group">
+                <div class="custom-control custom-checkbox">
+                  <input class="custom-control-input updateDataByColumn" type="checkbox" id="customCheckbox8"
+                    [value]="true" formControlName="isChange" name="isChange" data-label="主管與圖說管理人員須告知全體同仁本日異動內容">
+                  <label for="customCheckbox8" class="custom-control-label">主管與圖說管理人員須告知全體同仁本日異動內容</label>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="custom-control custom-checkbox">
+                  <input class="custom-control-input updateDataByColumn" type="checkbox" id="customCheckbox9"
+                    [value]="true" formControlName="isForSupplier" name="isForSupplier" data-label="主辦人員將異動圖面提供廠商">
+                  <label for="customCheckbox9" class="custom-control-label">主辦人員將異動圖面提供廠商</label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <label>勞安衛執行紀錄</label>
+              <div class="form-group">
+                <div class="custom-control custom-checkbox">
+                  <input class="custom-control-input updateDataByColumn" type="checkbox" id="customCheckbox10"
+                    [value]="true" formControlName="isMeeting" name="isMeeting" data-label="工具箱會議">
+                  <label for="customCheckbox10" class="custom-control-label">工具箱會議</label>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="custom-control custom-checkbox">
+                  <input class="custom-control-input updateDataByColumn" type="checkbox" id="customCheckbox11"
+                    [value]="true" formControlName="isMeetingRecord" name="isMeetingRecord" data-label="協議組織會議紀錄">
+                  <label for="customCheckbox11" class="custom-control-label">協議組織會議紀錄</label>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="custom-control custom-checkbox">
+                  <input class="custom-control-input updateDataByColumn" type="checkbox" id="customCheckbox12"
+                    [value]="true" formControlName="isDanger" name="isDanger" data-label="危害因素告知單">
+                  <label for="customCheckbox12" class="custom-control-label">危害因素告知單</label>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="custom-control custom-checkbox">
+                  <input class="custom-control-input updateDataByColumn" type="checkbox" id="customCheckbox13"
+                    [value]="true" formControlName="isCheck" name="isCheck" data-label="工地勞安巡檢">
+                  <label for="customCheckbox13" class="custom-control-label">工地勞安巡檢</label>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="custom-control custom-checkbox">
+                  <input class="custom-control-input updateDataByColumn" type="checkbox" id="customCheckbox14"
+                    [value]="true" formControlName="isAdjust" name="isAdjust" data-label="安衛聯繫調整巡視">
+                  <label for="customCheckbox14" class="custom-control-label">安衛聯繫調整巡視</label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row bg-light">
+            <div class="col-md-12 mb-2">
+              <button type="button" class="btn btn-info float-sm-right updateDataByColumn" (click)="AddCard(4)">
+                <i class="fas fa-plus"></i> 新增
+              </button>
+            </div>
+            <div class="col-md-12">
+              <div #DocumentList>
+                <div class="row">
+                  <div class="col-md-2"> <label>選擇收發文</label></div>
+                  <div class="col-md-2"> <label>本日主旨</label></div>
+                  <div class="col-md-2"> <label>收文/發文者</label></div>
+                  <div class="col-md-2"> <label>文號</label></div>
+                  <div class="col-md-3"> <label>辦理方式</label></div>
+                  <div class="col-md-1"> <label>刪除</label></div>
+                </div>
+                <div class="row" *ngFor="let item of documentList let index=index;" id="d_{{index}}">
+                  <div class="col-md-2">
+                    <select name="documentList[{{index}}].docType" class="form-control updateDataByColumn updateDataByListColumn"  [value]="item.docType"  data-label=" 收發文清單{{index+1}}:收發文" data-subdocName="documentList" data-subdocId="{{item._id}}" >
+                      <option value="true">收文</option>
+                      <option value="false">發文</option>
+                    </select>
+                  </div>
+                  <div class="col-md-2">
+                    <div class="form-group">
+                      <input type="text" name="documentList[{{index}}].docTitle"
+                      [value]="item.docTitle" class="form-control  updateDataByColumn updateDataByListColumn"
+                      data-label=" 收發文清單{{index+1}}:本日主旨" data-subdocName="documentList"
+                      data-subdocId="{{item._id}}">
+                    </div>
+                  </div>
+                  <div class="col-md-2">
+                    <div class="form-group">
+                      <input type="text" name="documentList[{{index}}].docPerson"
+                      [value]="item.docPerson" class="form-control  updateDataByColumn updateDataByListColumn"
+                      data-label=" 收發文清單{{index+1}}:收文/發文者" data-subdocName="documentList"
+                      data-subdocId="{{item._id}}">
+                    </div>
+                  </div>
+                  <div class="col-md-2">
+                    <div class="form-group">
+                      <input type="text" name="documentList[{{index}}].docNumber"
+                      [value]="item.docNumber" class="form-control  updateDataByColumn updateDataByListColumn"
+                      data-label=" 收發文清單{{index+1}}:文號" data-subdocName="documentList"
+                      data-subdocId="{{item._id}}">
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <input type="text" name="documentList[{{index}}].docDescription"
+                      [value]="item.docDescription" class="form-control  updateDataByColumn updateDataByListColumn"
+                      data-label=" 收發文清單{{index+1}}:辦理方式" data-subdocName="documentList"
+                      data-subdocId="{{item._id}}">
+                    </div>
+                  </div>
+                  <div class="col-md-1">
+                    <div class="form-group">
+                      <button type="button" class="btn btn-tool text-danger  updateDataByColumn" data-toggle="tooltip"
+                        title="刪除" (click)="del(index,'d',item._id)">
+                        <i class="fas fa-trash-alt"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /.card-body -->
+      </div>
+    </form>
+
+  </div>
+  <!-- /.card -->
+</section>
+<!-- /.content -->

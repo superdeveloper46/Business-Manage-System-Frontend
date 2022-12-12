@@ -1,0 +1,61 @@
+<div class="modal-header">
+  <h4 class="modal-title">大里橋下水道工程 合約</h4>
+  <button type="button" class="btn btn-tool" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <i class="fas fa-times"></i>
+  </button>
+</div>
+<div class="modal-body">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="alert alert-info alert-dismissible">
+        <h5 class="mt-2"> 已請採總金額 8,500,000 元 ｜ 已計價總金額 6,500,000 元</h5>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="btn-group">
+        <button type="button" class="btn btn-default active">全部</button>
+        <button type="button" class="btn btn-default">請採</button>
+        <button type="button" class="btn btn-default">追加減</button>
+      </div>
+    </div>
+  </div>
+  <br>
+    <div class="row">
+      <div class="col-md-12">
+        <table datatable [dtOptions]="dtOptions" class="table table-striped table-bordered table-hover nowrap">
+          <thead>
+            <tr>
+              <th>類別</th>
+              <th>工項名稱</th>
+              <th>合約編號</th>
+              <th>廠商</th>
+              <th>工數</th>
+              <th>合約金額</th>
+              <th>預付款</th>
+              <th>已計價</th>
+              <th>合約</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td><button type="button" data-widget="" data-toggle="tooltip" title="檢視" class="btn btn-default"
+                (click)="open('view1', 0)">檢視</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  <div class="modal-footer justify-content-between">
+    <button type="button" class="btn btn-default" (click)="activeModal.close('Close click')">Close</button>
+  </div>

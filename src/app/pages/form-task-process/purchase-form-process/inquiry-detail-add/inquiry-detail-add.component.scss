@@ -1,0 +1,7 @@
+::ng-deep ngb-modal-backdrop {
+    z-index: 1050 !important;
+}
+::ng-deep .modal-dialog { 
+    max-width: 65%!important;
+    width: 80%;
+}

@@ -1,0 +1,56 @@
+<div class="modal-header">
+  <h4 class="modal-title">請款紀錄</h4>
+  <button type="button" class="btn btn-tool" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <i class="fas fa-times"></i>
+  </button>
+</div>
+<div class="modal-body">
+<div class="row">
+  <div class="col-md-12">
+    <div class="btn-group">
+      <button type="button" class="btn btn-info active">全部</button>
+      <button type="button" class="btn btn-info">一般請款</button>
+      <button type="button" class="btn btn-info">物料調整請款</button>
+      <button type="button" class="btn btn-info">追加減請款</button>
+    </div>
+
+  </div>
+</div>
+<br>
+    <div class="row">
+      <div class="col-md-12">
+        <table datatable [dtOptions]="dtOptions" class="table table-striped table-bordered table-hover nowrap">
+          <thead>
+            <tr>
+              <th>類別</th>
+              <th>說明</th>
+              <th>圖說</th>
+              <th>合約</th>
+              <th>請款日</th>
+              <th>請款金額</th>
+              <th>收款日</th>
+              <th>狀態</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td></td>
+              <td></td>
+              <td><button type="button" data-widget="" data-toggle="tooltip" title="檢視" class="btn btn-default"
+                (click)="open('view1', 0)">檢視</button></td>
+              <td><button type="button" data-widget="" data-toggle="tooltip" title="檢視" class="btn btn-default"
+                (click)="open('view2', 0)">檢視</button></td>
+              <td></td>
+              <td><span class="badge bg-info">全部1,500,000</span></td>
+              <td></td>
+              <td></td>
+
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  <div class="modal-footer justify-content-between">
+    <button type="button" class="btn btn-default" (click)="activeModal.close('Close click')">Close</button>
+  </div>

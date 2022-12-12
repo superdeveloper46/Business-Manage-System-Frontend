@@ -1,0 +1,426 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1>專案資訊</h1>
+      </div>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a [routerLink]="['/']" href="/">Home</a></li>
+          <li class="breadcrumb-item active">專案資訊</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+  <!-- /.container-fluid -->
+</section>
+
+<div class="modal-body">
+  <form class="form-horizontal" [formGroup]="Card1Form" method="post" action="">
+    <div class="card">
+      <div class="card-header">
+        <h5 class="card-title mt-2">專案資料</h5>
+        <div class="card-tools">
+          <!-- <button type="button" *ngIf="!btnShow1 && this.RightObj['update']" class="btn btn-info"  (click)="enableCard(1)">
+          編輯
+         </button>
+         <button type="button" *ngIf="btnShow1 && this.RightObj['update']" class="btn btn-info">
+           儲存
+         </button> -->
+          <button type="button" class="btn bnt-tool" data-card-widget="collapse">
+            <i class="fas fa-minus"></i>
+          </button>
+        </div>
+      </div>
+      <!-- /.card-header -->
+      <div class="card-body" style="display: block;">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label><code>*</code>工程名稱</label>
+              <input type="text" class="form-control card1" formControlName="projectName" readonly>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-3">
+            <div class="form-group">
+              <label><code>*</code>專案編號</label>
+              <input type="text" class="form-control card1" formControlName="projectNo" readonly>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <label><code>*</code>工程代稱</label>
+              <input type="text" class="form-control card1" formControlName="projectShortName" readonly>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <label><code>*</code>工程日期</label>
+              <input type="text" class="form-control card1" formControlName="projectDate" readonly>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <label><code>*</code>契約工期(日曆天)</label>
+              <input type="text" class="form-control card1" formControlName="calendarDay" readonly>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-3">
+            <div class="form-group">
+              <label><code>*</code>累計工期</label>
+              <input type="text" class="form-control card1" formControlName="cumulativeDay" readonly>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <label><code>*</code>剩餘工期</label>
+              <input type="text" class="form-control card1" formControlName="remainingDay" readonly>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <label><code>*</code>原契約金額</label>
+              <input type="text" class="form-control card1" formControlName="bidAmount" readonly>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <label><code>*</code>變更後契約金額</label>
+              <input type="text" class="form-control card1" formControlName="changePrice" readonly>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /.card-body -->
+    </div>
+  </form>
+
+  <form class="form-horizontal" [formGroup]="Card2Form" method="post" action="">
+    <div class="card">
+      <div class="card-header">
+        <h5 class="card-title mt-2">相關人員</h5>
+        <div class="card-tools">
+          <!-- <button type="button" *ngIf="!btnShow2 && this.RightObj['update']" class="btn btn-info"  (click)="enableCard(2)">
+          編輯
+         </button>
+         <button type="button" *ngIf="btnShow2 && this.RightObj['update']" class="btn btn-info">
+           儲存
+         </button> -->
+          <button type="button" class="btn bnt-tool" data-card-widget="collapse">
+            <i class="fas fa-minus"></i>
+          </button>
+        </div>
+      </div>
+      <!-- /.card-header -->
+      <div class="card-body" style="display: block;">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group">
+              <label><code>*</code>專案主管</label>
+              <input type="text" class="form-control card2" readonly formControlName="projectManager">
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label><code>*</code>工地主任</label>
+              <input type="text" class="form-control card2" readonly formControlName="engineerManager">
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label><code>*</code>執行採發</label>
+              <input type="text" class="form-control card2" readonly formControlName="purchaseManager">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 bg-light">
+            <div class="row">
+              <div class="col-md-12">
+                相關人員
+                <button type="button" class="btn btn-info float-right" id="AddRelatedPersonnelList"
+                  (click)="AddRelatedPersonnelList()">
+                  <i class="fas fa-plus"></i> 新增
+                </button>
+              </div>
+            </div>
+            <div #RelatedPersonnelList>
+              <div class="row">
+                <div class="col-md-2"> <label>職稱</label></div>
+                <div class="col-md-3"> <label>部門</label></div>
+                <div class="col-md-3"> <label>人員</label></div>
+                <div class="col-md-3"> <label>上層主管</label></div>
+              </div>
+              <div class="row" *ngFor="let item of relatedPersonnelList let index=index;" id="r_{{index}}">
+                <div class="col-md-2">
+                  <ng-select2 [data]="s2Situations" [width]="'100%'" [placeholder]="'請選擇'" [value]="item.situationId"
+                    (valueChanged)="onChange_Situations($event,index,item._id)" [allowClear]="true"
+                    name="employeeList[{{index}}].situationId" class="updateDataByColumn updateDataByListColumn"
+                    data-label="相關人員{{index+1}}:職稱" data-subdocName="employeeList" data-subdocId="{{item._id}}">
+                  </ng-select2>
+
+                </div>
+                <div class="col-md-3">
+                  <ng-select2 [data]="s2Departments" [width]="'100%'" [placeholder]="'請選擇'"
+                    [value]="RelatedPersonnelList_department[index]" (valueChanged)="onChange_Departments($event,index)"
+                    [allowClear]="true" class="eSelect2 card2">
+                  </ng-select2>
+                </div>
+                <div class="col-md-3">
+                  <ng-select2 [data]="s2Employees[index]" [width]="'100%'" [placeholder]="'請選擇'"
+                    [value]="item.employeeId" (valueChanged)="onChange_Employees($event,index,item._id)"
+                    [allowClear]="true" name="employeeList[{{index}}].employeeId"
+                    class="eSelect2 updateDataByColumn updateDataByListColumn" data-label="相關人員{{index+1}}:人員"
+                    data-subdocName="employeeList">
+                  </ng-select2>
+                </div>
+                <div class="col-md-3">
+                  <ng-select2 [data]="s2Employees2[index]" [width]="'100%'" [placeholder]="'請選擇'"
+                    [value]="item.rootEmployeeId" (valueChanged)="onChange_Employees2($event,index,item._id)"
+                    [allowClear]="true" name="employeeList[{{index}}].rootEmployeeId"
+                    class="eSelect2 updateDataByColumn updateDataByListColumn" data-label="相關人員{{index+1}}:上層主管"
+                    data-subdocName="employeeList">
+                  </ng-select2>
+                </div>
+                <div class="col-md-1">
+                  <div class="form-group">
+                    <button type="button" class="btn btn-tool text-danger card2" data-toggle="tooltip" title="刪除"
+                      (click)="del(index,'r',item._id)">
+                      <i class="fas fa-trash-alt"></i>
+                    </button>
+                  </div>
+                </div>
+                <br>
+
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label><code>*</code>組織圖上傳</label>
+              <div class="custom-file">
+                <input #fileUpload type="file" class="custom-file-input card2" accept=".jpg,.png"
+                  (change)="fileSelected($event)">
+                <label class="custom-file-label" for="fileUpload">{{fileName ? fileName : '請上傳組織圖'}}</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12" style="text-align: center">
+            <img id="Img" [src]="PicBuffer || this.imgsrc" style="max-width: 100%;" />
+
+          </div>
+        </div>
+      </div>
+      <!-- /.card-body -->
+    </div>
+  </form>
+
+  <div class="card">
+    <div class="card-header">
+      <h5 class="card-title mt-2">施工日誌</h5>
+      <div class="card-tools">
+        <button type="button" class="btn bnt-tool" data-card-widget="collapse">
+          <i class="fas fa-minus"></i>
+        </button>
+      </div>
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body" style="display: block;">
+      <div class="row">
+        <div class="col-md-12">
+          <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"
+            class="table table-striped table-bordered table-hover nowrap">
+            <thead>
+              <tr>
+                <th>日期/天氣</th>
+                <th>完成進度</th>
+                <th>本日施作工項</th>
+                <th>上級提醒注意事項</th>
+                <th>需公司協助事項</th>
+                <th>內容</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of dailyReport">
+                <td>{{item.dailyDate | date:'yyyy/MM/dd' }}<br>
+                  上午：{{item.morningWeather}}
+                  下午：{{item.afternoonWeather}}</td>
+                <td>{{item.actualComplete}}% / {{item.expectComplete}}%</td>
+                <td>{{item.todayItem}}</td>
+                <td>{{item.bossSuggest}}</td>
+                <td>{{item.waitToSlove}}</td>
+                <td><a href="/#/DailyReportEdit/{{item._id}}" target="_blank" type="button" data-widget=""
+                    data-toggle="tooltip" title="檢視" class="btn btn-default mr-2">編輯</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <!-- /.card-body -->
+  </div>
+
+
+  <form class="form-horizontal" method="post" action="">
+    <div class="card">
+      <div class="card-header">
+        <h5 class="card-title mt-2">本案重點</h5>
+        <div class="card-tools">
+
+          <button type="button" class="btn bnt-tool" data-card-widget="collapse">
+            <i class="fas fa-minus"></i>
+          </button>
+        </div>
+      </div>
+      <!-- /.card-header -->
+      <div class="card-body" style="display: block;">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label><code>*</code>投標人員提醒本案重點</label>
+              <textarea class="form-control updateDataByColumn" [value]="tenderImportant" name="tenderImportant"
+                data-label="投標人員提醒本案重點"></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label><code>*</code>上級主管提醒本案重點</label>
+              <textarea class="form-control updateDataByColumn" [value]="bossImportant" name="bossImportant"
+                data-label="上級主管提醒本案重點"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /.card-body -->
+    </div>
+  </form>
+
+  <div class="card">
+    <div class="card-header">
+      <h5 class="card-title mt-2">材料送審項目
+      </h5>
+      <div class="card-tools">
+        <!-- <button type="button" *ngIf="!btnShow3 && this.RightObj['update']" class="btn btn-info"  (click)="enableCard(3)">
+            編輯
+           </button>
+           <button type="button" *ngIf="btnShow3 && this.RightObj['update']" class="btn btn-info" >
+             儲存
+           </button> -->
+        <button type="button" class="btn bnt-tool" data-card-widget="collapse">
+          <i class="fas fa-minus"></i>
+        </button>
+      </div>
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body" style="display: block;">
+      <div class="row">
+        <div class="col-md-12">
+          <button type="button" class="btn btn-info float-right card3" id="AddMaterialList" (click)="AddMaterialList()">
+            <i class="fas fa-plus"></i> 材料送審項目
+          </button>
+        </div>
+      </div>
+      <br>
+
+      <div #MaterialList>
+        <div class="row">
+          <div class="col-md-5"> <label>項次名稱</label></div>
+          <div class="col-md-6"> <label>材料/設備名稱</label></div>
+          <div class="col-md-1"> <label>刪除</label></div>
+        </div>
+        <div *ngFor="let item of material let index=index;" class="row" id="m_{{index}}">
+          <div class="col-md-5">
+            <div class="form-group">
+              <input type="text" class="form-control" [value]="item.materialItem" name="materialItem" data-label="材料送審項目{{index+1}}:項次名稱"  class="form-control updateDataByColumn updateDataByListCollection" data-subdocId="{{item._id}}" data-collectionName="material">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <input type="text" class="form-control" [value]="item.materialName" name="materialName" data-label="材料送審項目{{index+1}}:項次名稱"  class="form-control updateDataByColumn updateDataByListCollection" data-subdocId="{{item._id}}" data-collectionName="material">
+            </div>
+          </div>
+          <div class="col-md-1">
+            <div class="form-group">
+              <button type="button" class="btn btn-tool text-danger card3" data-toggle="tooltip" title="刪除"
+                (click)="del(index,'m',item._id)">
+                <i class="fas fa-trash-alt"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /.card-body -->
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <h5 class="card-title mt-2">計劃書送審項目
+      </h5>
+      <div class="card-tools">
+        <!-- <button type="button" *ngIf="!btnShow4 && this.RightObj['update']" class="btn btn-info"  (click)="enableCard(4)">
+            編輯
+           </button>
+           <button type="button" *ngIf="btnShow4 && this.RightObj['update']" class="btn btn-info" >
+             儲存
+           </button> -->
+
+        <button type="button" class="btn bnt-tool" data-card-widget="collapse">
+          <i class="fas fa-minus"></i>
+        </button>
+      </div>
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body" style="display: block;">
+      <div class="row">
+        <div class="col-md-12">
+          <button type="button" class="btn btn-info float-right card4" id="AddProjectList" (click)="AddProjectList()">
+            <i class="fas fa-plus"></i> 計劃書送審項目
+          </button>
+        </div>
+      </div>
+      <br>
+      <div #ProjectList>
+        <div class="row">
+          <div class="col-md-5"> <label>項次名稱</label></div>
+          <div class="col-md-6"> <label>材料/設備名稱</label></div>
+          <div class="col-md-1"> <label>刪除</label></div>
+        </div>
+        <div *ngFor="let item of proposal let index=index;" class="row" id="p_{{index}}">
+          <div class="col-md-5">
+            <div class="form-group">
+              <input type="text" [value]="item.proposalItem" name="proposalItem" data-label="計劃書送審項目{{index+1}}:項次名稱"  class="form-control updateDataByColumn updateDataByListCollection" data-subdocId="{{item._id}}"  data-collectionName="proposal">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <input type="text" [value]="item.proposalName" name="proposalName" data-label="計劃書送審項目{{index+1}}:項次名稱"  class="form-control updateDataByColumn updateDataByListCollection" data-subdocId="{{item._id}}"  data-collectionName="proposal">
+            </div>
+          </div>
+          <div class="col-md-1">
+            <div class="form-group">
+              <button type="button" class="btn btn-tool text-danger card4" data-toggle="tooltip" title="刪除"
+                (click)="del(index,'p',item._id)">
+                <i class="fas fa-trash-alt"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /.card-body -->
+  </div>
+</div>

@@ -1,0 +1,40 @@
+<div #RelatedPersonnelList>
+  <div class="row" id="r_{{k}}">
+    <div class="col-md-2">
+      <ng-select2 [data]="s2Situations" [width]="'100%'" [placeholder]="'請選擇'"
+        (valueChanged)="onChange_Situations($event,k,id)" [allowClear]="true" name="employDetail[{{k}}].situationId"
+        class="updateDataByColumn updateDataByListColumn" data-label="相關人員{{k+1}}.人員" data-subdocName="employDetail"
+        data-subdocId="{{id}}">
+      </ng-select2>
+
+    </div>
+    <div class="col-md-3">
+      <ng-select2 [data]="s2Departments" [width]="'100%'" [placeholder]="'請選擇'"
+        (valueChanged)="onChange_Departments($event,k)" [allowClear]="true" class="eSelect2 card2">
+      </ng-select2>
+    </div>
+    <div class="col-md-3">
+      <ng-select2 [data]="s2Employees[k]" [width]="'100%'" [placeholder]="'請選擇'"
+        (valueChanged)="onChange_Employees($event,k,id)" [allowClear]="true" name="employeeList[{{k}}].employeeId"
+        class="eSelect2 updateDataByColumn updateDataByListColumn" data-label="相關人員{{k+1}}:人員"
+        data-subdocName="employeeList">
+      </ng-select2>
+    </div>
+    <div class="col-md-3">
+      <ng-select2 [data]="s2Employees2[k]" [width]="'100%'" [placeholder]="'請選擇'"
+        (valueChanged)="onChange_Employees2($event,k,id)" [allowClear]="true" name="employDetail[{{k}}].rootEmployeeId"
+        class="updateDataByColumn updateDataByListColumn" data-label="相關人員{{k+1}}.上層主管" data-subdocName="employDetail"
+        data-subdocId="{{id}}">
+      </ng-select2>
+    </div>
+    <div class="col-md-1">
+      <div class="form-group">
+        <button type="button" class="btn btn-tool text-danger" data-toggle="tooltip" title="刪除" (click)="del(k)">
+          <i class="fas fa-trash-alt"></i>
+        </button>
+      </div>
+    </div>
+    <br>
+
+  </div>
+</div>

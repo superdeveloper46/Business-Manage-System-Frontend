@@ -1,0 +1,95 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1>貨品管理</h1>
+      </div>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a [routerLink]="['/']" href="/">Home</a></li>
+          <li class="breadcrumb-item active">貨品管理</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+  <!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+  <!-- Default box -->
+  <div class="container-fluid">
+    <div class="card">
+      <div class="card-header row">
+        <div class="col-sm-3 col-md-3">
+          <div class="row">
+            <div class="col-sm-2 col-md-2 btn-tools">
+              <button type="button" class="btn btn-tool" data-widget="addData" data-toggle="tooltip" title="新增商品"
+                (click)="open('add', null)">
+                <i class="fas fa-plus-circle"></i>
+              </button>
+            </div>
+            <div class="col-sm-10 col-md-10 btn-tools">
+              <select #selectGoodTypes class="custom-select custom-select-sm" (change)="refreshData()">
+                <option value="0">請選擇商品類別</option>
+                <option *ngFor="let goodType of goodTypes" [value]="goodType.id">{{goodType.goodsTypeName}}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-9 col-md-9">
+          <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-widget="reload" data-toggle="tooltip" title="reload"
+              (click)="refreshData()">
+              <i class="fas fa-redo-alt"></i>
+            </button>
+            <button type="button" class="btn btn-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+              <i class="fa fa-minus"></i>
+            </button>
+            <button type="button" class="btn btn-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
+              <i class="fa fa-times"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"
+          class="table table-striped table-bordered table-hover nowrap">
+          <thead>
+            <tr>
+              <th>商品名稱</th>
+              <th>商品類別</th>
+              <th>備註</th>
+              <th>建立日期</th>
+              <th>異動</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let good of goods">
+              <td>{{ good.goodsName }}</td>
+              <td>{{ good.goodsType }}</td>
+              <td>{{ good.goodsRemark }}</td>
+              <td>{{ good.createTime }}</td>
+              <td>
+                <button type="button" class="btn btn-tool" data-widget="editData" data-toggle="tooltip" title="修改商品"
+                  (click)="open('edit', good)">
+                  <i class="fas fa-edit"></i>
+                </button>
+                <button type="button" class="btn btn-tool" data-widget="delData" data-toggle="tooltip" title="刪除商品"
+                  (click)="open('delete', good)">
+                  <i class="fas fa-trash-alt"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+      <!-- /.card-body -->
+    </div>
+  </div>
+  <!-- /.card -->
+</section>
+<!-- /.content -->

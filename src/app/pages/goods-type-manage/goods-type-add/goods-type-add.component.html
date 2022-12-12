@@ -1,0 +1,24 @@
+<div class="modal-header">
+  <h4 class="modal-title">新增貨品類別</h4>
+  <button type="button" class="btn btn-tool" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <i class="fas fa-times"></i>
+  </button>
+</div>
+<div class="modal-body">
+  <form class="form-horizontal" id="CreateForm" method="post" action="">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group">
+          <label><code>*</code>貨品類別名稱</label>
+          <input type="text" [formControl]="GoodsTypeName" class="form-control">
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <button type="button" class="btn btn-warning form-control" (click)="addGoodsType()">新增</button>
+    </div>
+  </form>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
+  </div>

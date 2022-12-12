@@ -1,0 +1,52 @@
+<div class="modal-header">
+  <h4 class="modal-title">新增職務</h4>
+  <button type="button" class="btn btn-tool" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <i class="fas fa-times"></i>
+  </button>
+</div>
+<div class="modal-body">
+  <form class="form-horizontal" [formGroup]="CreateForm" method="post" action="">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group">
+          <label><code>*</code>職務名稱</label>
+          <input type="text" formControlName="jobName" class="form-control">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label><code>*</code>職務代號</label>
+          <input type="text" formControlName="jobCode" class="form-control">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label><code>*</code>職務層級</label>
+          <input type="number" formControlName="rank" class="form-control">
+        </div>
+      </div>
+    </div>
+    <!-- <div class="row">
+      <div class="col-md-12">
+        <div class="form-group">
+          <label>功能模組集合</label>
+          <div>
+            <ng-select2
+                [data]="s2JobModules"
+                [width]="'100%'"
+                [options]="options"
+                [placeholder]="'請選擇功能模組'"
+                (valueChanged)="onChange_Modules($event)"
+                >
+            </ng-select2>
+          </div>
+        </div>
+      </div>
+    </div> -->
+  </form>
+  <div class="modal-footer justify-content-between">
+    <button type="button" class="btn btn-default" (click)="activeModal.close('Close click')">Close</button>
+    <button type="button" class="btn btn-info" (click)="addJob()">確定</button>
+  </div>

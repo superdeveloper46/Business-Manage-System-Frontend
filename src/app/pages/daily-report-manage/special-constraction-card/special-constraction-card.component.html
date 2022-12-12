@@ -1,0 +1,53 @@
+<div #SpecialConstractionList>
+  <div class="row" id="s_{{k1}}">
+    <div class="col-md-3">
+      <div class="form-group">
+        <input type="text" name="specialConstractionList[{{k1}}].itemName"
+          class="form-control updateDataByColumn updateDataByListColumn" data-label="營造業專業工程特定施工清單{{k1+1}}.項次名稱"
+          data-subdocName="specialConstractionList" data-subdocId="{{id}}">
+      </div>
+    </div>
+    <div class="col-md-1">
+      <div class="form-group">
+        <input type="text" name="specialConstractionList[{{k1}}].unit"
+          class="form-control  updateDataByColumn updateDataByListColumn" data-label="營造業專業工程特定施工清單{{k1+1}}.單位"
+          data-subdocName="specialConstractionList" data-subdocId="{{id}}">
+      </div>
+    </div>
+    <div class="col-md-2">
+      <div class="form-group">
+        <input type="text" name="specialConstractionList[{{k1}}].quantity"
+          class="form-control  updateDataByColumn updateDataByListColumn" data-label="營造業專業工程特定施工清單{{k1+1}}.契約數量"
+          data-subdocName="specialConstractionList" data-subdocId="{{id}}">
+      </div>
+    </div>
+    <div class="col-md-2">
+      <div class="form-group">
+        <input type="text" name="specialConstractionList[{{k1}}].todayUse"
+          class="form-control  updateDataByColumn updateDataByListColumn" data-label="營造業專業工程特定施工清單{{k1+1}}.本日使用數量"
+          data-subdocName="specialConstractionList" data-subdocId="{{id}}">
+      </div>
+    </div>
+    <div class="col-md-2">
+      <div class="form-group">
+        <input type="text" name="specialConstractionList[{{k1}}].cumulativeuse"
+          class="form-control  updateDataByColumn updateDataByListColumn" data-label="營造業專業工程特定施工清單{{k1+1}}.累計使用數量"
+          data-subdocName="specialConstractionList" data-subdocId="{{id}}">
+      </div>
+    </div>
+    <div class="col-md-1">
+      <div class="form-group">
+        <input type="text" name="specialConstractionList[{{k1}}].remark"
+          class="form-control  updateDataByColumn updateDataByListColumn" data-label="營造業專業工程特定施工清單{{k1+1}}.備註"
+          data-subdocName="specialConstractionList" data-subdocId="{{id}}">
+      </div>
+    </div>
+    <div class="col-md-1">
+      <div class="form-group">
+        <button type="button" class="btn btn-tool text-danger" data-toggle="tooltip" title="刪除" (click)="del(k1)">
+          <i class="fas fa-trash-alt"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

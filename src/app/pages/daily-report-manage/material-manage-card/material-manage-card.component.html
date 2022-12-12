@@ -1,0 +1,53 @@
+<div #MaterialManageList>
+  <div class="row" id="m_{{k2}}">
+    <div class="col-md-3">
+      <div class="form-group">
+        <input type="text" name="materialManageList[{{k2}}].itemName"
+          class="form-control updateDataByColumn updateDataByListColumn" data-label="工地材料管理概況{{k2+1}}.項次名稱"
+          data-subdocName="materialManageList" data-subdocId="{{id}}">
+      </div>
+    </div>
+    <div class="col-md-1">
+      <div class="form-group">
+        <input type="text" name="materialManageList[{{k2}}].unit"
+          class="form-control  updateDataByColumn updateDataByListColumn" data-label="工地材料管理概況{{k2+1}}.單位"
+          data-subdocName="materialManageList" data-subdocId="{{id}}">
+      </div>
+    </div>
+    <div class="col-md-2">
+      <div class="form-group">
+        <input type="text" name="materialManageList[{{k2}}].quantity"
+          class="form-control  updateDataByColumn updateDataByListColumn" data-label="工地材料管理概況{{k2+1}}.契約數量"
+          data-subdocName="materialManageList" data-subdocId="{{id}}">
+      </div>
+    </div>
+    <div class="col-md-2">
+      <div class="form-group">
+        <input type="text" name="materialManageList[{{k2}}].todayUse"
+          class="form-control  updateDataByColumn updateDataByListColumn" data-label="工地材料管理概況{{k2+1}}.本日使用數量"
+          data-subdocName="materialManageList" data-subdocId="{{id}}">
+      </div>
+    </div>
+    <div class="col-md-2">
+      <div class="form-group">
+        <input type="text" name="materialManageList[{{k2}}].cumulativeuse"
+          class="form-control  updateDataByColumn updateDataByListColumn" data-label="工地材料管理概況{{k2+1}}.累計使用數量"
+          data-subdocName="materialManageList" data-subdocId="{{id}}">
+      </div>
+    </div>
+    <div class="col-md-1">
+      <div class="form-group">
+        <input type="text" name="materialManageList[{{k2}}].remark"
+          class="form-control  updateDataByColumn updateDataByListColumn" data-label="工地材料管理概況{{k2+1}}.備註"
+          data-subdocName="materialManageList" data-subdocId="{{id}}">
+      </div>
+    </div>
+    <div class="col-md-1">
+      <div class="form-group">
+        <button type="button" class="btn btn-tool text-danger" data-toggle="tooltip" title="刪除" (click)="del(k2)">
+          <i class="fas fa-trash-alt"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

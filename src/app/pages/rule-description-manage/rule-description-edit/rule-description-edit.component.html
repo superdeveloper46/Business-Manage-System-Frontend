@@ -1,0 +1,37 @@
+<div class="modal-header">
+  <h4 class="modal-title">修改工程規範說明</h4>
+  <button type="button" class="btn btn-tool" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <i class="fas fa-times"></i>
+  </button>
+</div>
+<div class="modal-body">
+  <form class="form-horizontal" [formGroup]="EditForm" method="post" action="">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group">
+          <label><code>*</code>工程規範說明名稱</label>
+          <input type="text" formControlName="ruleDescriptionTitle" class="form-control">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group">
+          <label><code>*</code>說明內容</label>
+          <div class="input-group">
+            <!-- <div class="custom-file">
+              <input #fileUpload type="file" class="custom-file-input" accept=".doc,.docx"  (change)="fileSelected($event)">
+              <label class="custom-file-label" for="fileUpload">{{fileName ? fileName : '請上傳Word檔案(.doc,.docx)'}}</label>
+            </div> -->
+
+            <angular-editor formControlName="htmlCode" [config]="config"></angular-editor>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <div class="modal-footer justify-content-between">
+    <button type="button" class="btn btn-default" (click)="activeModal.close('Close click')">Close</button>
+    <button type="button" class="btn btn-info" (click)="editRuleDescription()">確定</button>
+  </div>

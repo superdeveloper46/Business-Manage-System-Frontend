@@ -1,0 +1,56 @@
+<section class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1>{{formName}}
+        </h1>
+      </div>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="#">Home</a></li>
+          <li class="breadcrumb-item active">{{formName}}</li>
+        </ol>
+      </div>
+    </div>
+  </div><!-- /.container-fluid -->
+</section>
+
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header">
+            <h5 class="card-title mt-2"></h5>
+            <button type="button" class="btn btn-info float-right" (click)="openModal('add')">
+              <i class="fas fa-plus"></i> 新增
+            </button>
+          </div>
+          <!-- /.card-header -->
+          <div class="card-body">
+            <div class="row">
+              <div class="col-12 col-md-3">
+                <div class="form-group">
+                  <label>選擇簽核狀態</label>
+                  <div class="select2-info">
+                    <ng-select2 [width]="300" [placeholder]="'please select'" (valueChanged)="onChange($event)">
+                      <option *ngFor="let data of taskStatus" [value]="data._id">{{data.taskStatusName}}</option>
+                    </ng-select2>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <!-- 採購申請 -->
+              <app-purchase-form *ngIf="formId ==='20221027173636377'" (go)="go($event.data, $event.detail)"
+                [tableData]="tableData" [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" [loginUserId]="loginUserId" (reloadData)="reloadData()"></app-purchase-form>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /.col -->
+    </div>
+    <!-- /.row -->
+  </div>
+</section>

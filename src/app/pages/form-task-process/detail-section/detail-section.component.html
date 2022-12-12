@@ -1,0 +1,23 @@
+<div class="card">
+    <div class="card-header">
+        <h5 class="card-title mt-2">
+            {{title}}
+        </h5>
+        <div class="card-tools">
+            <button *ngIf="expand===undefined" type="button" class="btn bnt-tool float-right mr-2" data-card-widget="collapse" (click)="handleMainMenuAction()">
+                <i
+                    [ngClass]="isMenuExtended ? 'fas fa-minus' : 'fas fa-plus'"
+                    [@rotate]="isMenuExtended"
+                ></i>
+            </button>
+            <ng-container *ngFor="let data of component">
+                <button  *ngIf="action.allowEdit" (click)="openModal(data.action)" type="button" class="btn btn-info float-right mr-2">
+                    <i class="{{data.icon}}"></i> {{data.name}}
+                </button>
+            </ng-container>
+        </div>
+    </div>
+    <div class="card-body" [@openClose]="isMenuExtended">
+        <ng-content></ng-content>
+    </div>
+</div>

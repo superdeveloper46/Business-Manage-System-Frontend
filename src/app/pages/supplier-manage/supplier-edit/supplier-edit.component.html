@@ -1,0 +1,217 @@
+<div class="modal-header">
+  <h4 class="modal-title">編輯廠商資料</h4>
+  <button type="button" class="btn btn-tool" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <i class="fas fa-times"></i>
+  </button>
+</div>
+<div class="modal-body">
+  <form class="form-horizontal" [formGroup]="EditForm" method="post" action="">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="form-group">
+          <label><code>*</code>廠商名稱</label>
+          <input type="text" formControlName="supplierName" class="form-control">
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <label><code>*</code>統編</label>
+          <input type="number" formControlName="businessNo" class="form-control">
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <label><code>*</code>合約代稱</label>
+          <input type="text" formControlName="codeName" class="form-control" maxlength="1">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="form-group">
+          <label><code>*</code>聯絡人姓名</label>
+          <input type="text" formControlName="contactName" class="form-control">
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <label><code>*</code>聯絡人電話</label>
+          <input type="text" formControlName="contactPhone" class="form-control">
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <label><code>*</code>不良紀錄</label>
+          <select formControlName="badRecord" class="form-control">
+            <option value="false">無</option>
+            <option value="true">有</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="form-group">
+          <label><code>*</code>Email</label>
+          <input type="text" formControlName="email" class="form-control">
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <label><code>*</code>合作模式</label>
+          <select #selectGoodTypes class="form-control" formControlName="supplierTypeId">
+            <option value="0">請選擇合作模式</option>
+            <option *ngFor="let item of supplierTypes" [value]="item._id">
+              {{item.typeName}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <label><code>*</code>工班人數</label>
+          <input type="number" formControlName="workersNum" class="form-control">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="form-group">
+          <label><code>*</code>縣市</label>
+          <ng-select2 [data]="s2Locations" [width]="'100%'" [placeholder]="'請選擇'"
+            (valueChanged)="onChange_Locations($event,'','')" [value]="locationItem_locationName" [allowClear]="true">
+          </ng-select2>
+
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <label><code>*</code>地區</label>
+          <ng-select2 [data]="s2Areas" [width]="'100%'" [placeholder]="'請選擇'" (valueChanged)="onChange_Areas($event)"  [value]="locationItem_areaName" [allowClear]="true">
+          </ng-select2>
+
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <label><code>*</code>地址</label>
+          <input type="text" formControlName="address" class="form-control">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group">
+          <label><code>*</code>負責工項</label>
+          <ng-select2 [data]="s2WorkTypes" [width]="'100%'" [options]="options" [placeholder]="'請選擇'" [value]="WorkType"
+            (valueChanged)="onChange_WorkTypes($event)" [allowClear]="true">
+          </ng-select2>
+        </div>
+      </div>
+    </div>
+
+    <div class="row" style="padding: 15px;">
+      <div class="col-md-12" style="background-color: #eee">
+        <div class="row">
+          <div class="col-md-12">
+            <button type="button" class="btn btn-info float-right" (click)="addlocationAreaList()">
+              <i class="fas fa-plus"></i> 新增
+            </button>
+          </div>
+        </div>
+        <div #locationAreaList>
+          <div class="row">
+            <div class="col-md-3"> <label>業務範圍縣市</label></div>
+            <div class="col-md-8"> <label>地區</label></div>
+          </div>
+          <div class="row" *ngFor="let item of supplier.locationAreaList let index=index;" id="l_{{index}}">
+            <div class="col-md-3">
+              <div class="form-group">
+                <ng-select2 [data]="s2Locations_List" [width]="'100%'" [placeholder]="'請選擇'"
+                  (valueChanged)="onChange_Locations($event,'List',index)" class="select2" [value]="locationAreaList_locationName[index]" [allowClear]="true">
+                </ng-select2>
+              </div>
+            </div>
+            <div class="col-md-8">
+              <div class="form-group">
+                <ng-select2 [data]="s2Areas_List[index]" [width]="'100%'" [placeholder]="'請選擇'" [options]="options"
+                  (valueChanged)="onChange_AreasList($event,index)" class="select2" [value]="locationAreaList_areaNameList[index]" [allowClear]="true">
+                </ng-select2>
+              </div>
+            </div>
+            <div class="col-md-1">
+              <div class="form-group">
+                <button type="button" class="btn btn-tool text-danger" data-toggle="tooltip" title="刪除"
+                  (click)="del(index)">
+                  <i class="fas fa-trash-alt"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label><code>*</code>負責採發人員</label>
+          <ng-select2 [data]="s2Employees" [width]="'100%'" [placeholder]="'請選擇'"
+            (valueChanged)="onChange_Employees($event)" formControlName="employeeId" [allowClear]="true">
+          </ng-select2>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>備註</label>
+          <input type="text" formControlName="remark" class="form-control">
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>銀行名稱</label>
+          <ng-select2 [data]="s2Banks" [width]="'100%'" [placeholder]="'請選擇'" (valueChanged)="onChange_Banks($event)"  [value]="supplierBankData_bankId" [allowClear]="true">
+          </ng-select2>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>分行名稱</label>
+          <input type="text" class="form-control" [formControl]="supplierBankData_branchName" >
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>銀行帳號</label>
+          <input type="text" class="form-control" [formControl]="supplierBankData_accountNo" >
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>戶名</label>
+          <input type="text" class="form-control" [formControl]="supplierBankData_userName">
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="form-group">
+          <label>存摺照片上傳</label>
+          <div class="input-group">
+            <div class="custom-file">
+              <input #fileUpload type="file" class="custom-file-input" accept=".jpg,.png"
+                (change)="fileSelected($event)">
+              <label class="custom-file-label" for="fileUpload">{{fileName ? fileName : '請上傳檔案(.jpg,.png)'}}</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <div class="modal-footer justify-content-between">
+    <button type="button" class="btn btn-default" (click)="activeModal.close('Close click')">Close</button>
+    <button type="button" class="btn btn-info" (click)="editSupplier()">確定</button>
+  </div>

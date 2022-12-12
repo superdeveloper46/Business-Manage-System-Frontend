@@ -1,0 +1,51 @@
+<div class="modal-header">
+    <h4 class="modal-title">新增廠商</h4>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="activeModal.close('Close click')">
+    <span aria-hidden="true">×</span>
+    </button>
+</div>
+<div class="modal-body">
+    <form class="form-horizontal" [formGroup]="createForm" method="post" action="">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group" style="position: relative">
+                    <label>廠商名稱</label>
+                    
+                    <input type="text" formControlName="supplierName" (focusout)="focusOut()" (focus)="focusIn()" (input)="valueChanged($event)" (keydown)="onKeydown($event)" class="form-control" placeholder="廠商名稱">
+                    <div *ngIf="viewMode" class="searchPanel">
+                        <option *ngFor="let data of suppliers" (click)="selectSupplier(data)"  [value]="data._id">{{data.supplierName}}</option>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>統一編號</label>
+                    <input type="text" formControlName="businessNo" class="form-control" placeholder="統一編號">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>聯絡人</label>
+                    <input type="text" formControlName="contactName" class="form-control" placeholder="聯絡人">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>連絡電話</label>
+                    <input type="text" formControlName="contactPhone" class="form-control" placeholder="連絡電話">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>備註</label>
+                    <input type="text" formControlName="remark" class="form-control" placeholder="備註">
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal-footer justify-content-between">
+    <button type="button" class="btn btn-default" data-dismiss="modal" (click)="activeModal.close('Close click')">Close</button>
+    <button type="button" class="btn btn-info" (click)="saveInquiry()">確定</button>
+</div>

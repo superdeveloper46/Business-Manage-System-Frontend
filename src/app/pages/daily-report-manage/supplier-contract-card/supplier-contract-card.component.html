@@ -1,0 +1,44 @@
+<div #SupplierContractList>
+  <div class="row" id="s2_{{k3}}">
+    <div class="col-md-3">
+      <div class="form-group">
+        <ng-select2 [data]="s2Suppliers" [width]="'100%'" [placeholder]="'請選擇'"
+        (valueChanged)="onChange_Suppliers($event,k3,id)" [allowClear]="true" name="supplierContractList[{{k3}}].supplierId" class="updateDataByColumn updateDataByListColumn" data-label="營造業專業工程特定施工清單{{k3+1}}.選擇廠商" data-subdocName="supplierContractList"
+        data-subdocId="{{id}}">
+  </ng-select2>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="form-group">
+        <ng-select2 [data]="s2WorkTypes" [width]="'100%'" [placeholder]="'請選擇'"
+        (valueChanged)="onChange_WorkTypes($event,k3,id)" [allowClear]="true"  name="supplierContractList[{{k3}}].workTypeId" class="updateDataByColumn updateDataByListColumn" data-label="營造業專業工程特定施工清單{{k3+1}}.工項" data-subdocName="supplierContractList"
+        data-subdocId="{{id}}">
+      </ng-select2>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="form-group">
+        <input type="number" name="supplierContractList[{{k3}}].workers"
+        class="form-control  updateDataByColumn updateDataByListColumn"
+        data-label="營造業專業工程特定施工清單{{k3+1}}.出工人數" data-subdocName="supplierContractList"
+        data-subdocId="{{id}}">
+      </div>
+    </div>
+    <div class="col-md-2">
+      <div class="form-group">
+        <input type="text" name="supplierContractList[{{k3}}].workStatus"
+         class="form-control  updateDataByColumn updateDataByListColumn"
+        data-label="營造業專業工程特定施工清單{{k3+1}}.出工狀態" data-subdocName="supplierContractList"
+        data-subdocId="{{id}}">
+      </div>
+    </div>
+    <div class="col-md-1">
+      <div class="form-group">
+        <button type="button" class="btn btn-tool text-danger" data-toggle="tooltip" title="刪除"
+          (click)="del(k3)">
+          <i class="fas fa-trash-alt"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,136 @@
+<div class="modal-header">
+  <h4 class="modal-title">新增物料明細</h4>
+  <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+    (click)="activeModal.close('Close click')">
+    <span aria-hidden="true">×</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form class="form-horizontal" [formGroup]="createForm" method="post" action="">
+    <!-- <div class="row">
+      <div class="col-md-12">
+        <div class="form-group" style="position: relative">
+          <label>物料編號與名稱</label>
+          <input type="text" formControlName="pccesId" (focusout)="focusOut()" (focus)="focusIn()"
+            (input)="valueChanged($event)" class="form-control"
+            placeholder="0279622112 密級配改質瀝青混凝土鋪面 第二類型 粗粒料50mm 改質Ⅰ型 工廠交貨">
+          <div *ngIf="viewMode" class="searchPanel">
+            <option *ngFor="let data of pccesCodeData" (click)="selectPccesCode(data)" [value]="data._id">
+              {{data._id}}-{{data.description}}</option>
+          </div>
+
+        </div>
+      </div>
+    </div> -->
+    <div class="row">
+      <div class="col-md-6">
+        <div class="custom-control custom-switch">
+          <input type="radio" class="custom-control-input" id="customSwitch1" checked name="QueryPType" (change)="QueryPTypeFunc(1)">
+          <label class="custom-control-label" for="customSwitch1">下拉式查詢</label>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="custom-control custom-switch">
+          <input type="radio" class="custom-control-input" id="customSwitch2" name="QueryPType" (change)="QueryPTypeFunc(2)">
+          <label class="custom-control-label" for="customSwitch2">10碼查詢</label>
+        </div>
+      </div>
+
+    </div>
+    <br>
+    <div class="row" *ngIf="QueryPType === 2">
+      <div class="col-md-9">
+        <div class="form-group" style="position: relative">
+          <label>物料編號與名稱</label>
+          <input type="text" class="form-control" maxlength="10" id="queryPcces">
+        </div>
+      </div>
+      <div class="col-md-3" style="text-align: center">
+        <button class="btn btn-info my-4" (click)="queryPcces()"><i class="fa fa-search"></i> 查詢</button>
+      </div>
+      <div class="col-md-12">
+        <input type="text" class="form-control" id="pccesResult" readonly style="border: 0">
+        <br>
+      </div>
+    </div>
+    <div class="row" *ngIf="QueryPType === 1">
+      <div class="col-md-4">
+        <div class="form-group">
+          <label>物料前5碼</label>
+          <ng-select2 [data]="s2PccesCodeF5" [width]="'100%'" [placeholder]="'請選擇'"
+            (valueChanged)="onChange_PccesCodeF5($event)" [allowClear]="true">
+          </ng-select2>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <label>第6碼</label>
+          <ng-select2 [data]="s2PccesCode[0]" [width]="'100%'" [placeholder]="'請選擇'"
+            (valueChanged)="onChange_PccesCode($event,6)" [allowClear]="true">
+          </ng-select2>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <label>第7碼</label>
+          <ng-select2 [data]="s2PccesCode[1]" [width]="'100%'" [placeholder]="'請選擇'"
+            (valueChanged)="onChange_PccesCode($event,7)" [allowClear]="true">
+          </ng-select2>
+        </div>
+      </div>
+    </div>
+    <div class="row" *ngIf="QueryPType === 1">
+      <div class="col-md-4">
+        <div class="form-group">
+          <label>第8碼</label>
+          <ng-select2 [data]="s2PccesCode[2]" [width]="'100%'" [placeholder]="'請選擇'"
+            (valueChanged)="onChange_PccesCode($event,8)" [allowClear]="true">
+          </ng-select2>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <label>第9碼</label>
+          <ng-select2 [data]="s2PccesCode[3]" [width]="'100%'" [placeholder]="'請選擇'"
+            (valueChanged)="onChange_PccesCode($event,9)" [allowClear]="true">
+          </ng-select2>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <label>第10碼</label>
+          <ng-select2 [data]="s2PccesCode[4]" [width]="'100%'" [placeholder]="'請選擇'"
+            (valueChanged)="onChange_PccesCode($event,10)" [allowClear]="true">
+          </ng-select2>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>圖說編號</label>
+          <input type="text" formControlName="diagramNo" class="form-control">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>規格</label>
+          <input type="text" formControlName="spec" class="form-control">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group">
+          <label>申購數量</label>
+          <input type="number" formControlName="quantity" class="form-control">
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="modal-footer justify-content-between">
+  <button type="button" class="btn btn-default" data-dismiss="modal"
+    (click)="activeModal.close('Close click')">Close</button>
+  <button type="button" class="btn btn-info" (click)="savePcces()">新增並繼續</button>
+</div>

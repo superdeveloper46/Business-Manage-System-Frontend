@@ -1,0 +1,46 @@
+<div #DocumentList>
+  <div class="row" id="d_{{k4}}">
+    <div class="col-md-2">
+      <select name="documentList[{{k4}}].docType" class="form-control updateDataByColumn updateDataByListColumn"
+        data-label=" 收發文清單{{k4+1}}.收發文" data-subdocName="documentList" data-subdocId="{{id}}">
+        <option value="true">收文</option>
+        <option value="false">發文</option>
+      </select>
+    </div>
+    <div class="col-md-2">
+      <div class="form-group">
+        <input type="text" name="documentList[{{k4}}].docTitle"
+          class="form-control  updateDataByColumn updateDataByListColumn" data-label=" 收發文清單{{k4+1}}.本日主旨"
+          data-subdocName="documentList" data-subdocId="{{id}}">
+      </div>
+    </div>
+    <div class="col-md-2">
+      <div class="form-group">
+        <input type="text" name="documentList[{{k4}}].docPerson"
+          class="form-control  updateDataByColumn updateDataByListColumn" data-label=" 收發文清單{{k4+1}}.收文/發文者"
+          data-subdocName="documentList" data-subdocId="{{id}}">
+      </div>
+    </div>
+    <div class="col-md-2">
+      <div class="form-group">
+        <input type="text" name="documentList[{{k4}}].docNumber"
+          class="form-control  updateDataByColumn updateDataByListColumn" data-label=" 收發文清單{{k4+1}}.文號"
+          data-subdocName="documentList" data-subdocId="{{id}}">
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="form-group">
+        <input type="text" name="documentList[{{k4}}].docDescription"
+          class="form-control  updateDataByColumn updateDataByListColumn" data-label=" 收發文清單{{k4+1}}.辦理方式"
+          data-subdocName="documentList" data-subdocId="{{id}}">
+      </div>
+    </div>
+    <div class="col-md-1">
+      <div class="form-group">
+        <button type="button" class="btn btn-tool text-danger" data-toggle="tooltip" title="刪除" (click)="del(k4)">
+          <i class="fas fa-trash-alt"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

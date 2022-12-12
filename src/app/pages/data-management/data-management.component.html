@@ -1,0 +1,306 @@
+<section class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1>Manufacturer data management
+        </h1>
+      </div>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="#">Home</a></li>
+          <li class="breadcrumb-item active">DataTables</li>
+        </ol>
+      </div>
+    </div>
+  </div><!-- /.container-fluid -->
+</section>
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header">
+            <h5 class="card-title mt-2">
+              <font style="vertical-align: inherit;">
+                <font style="vertical-align: inherit;">Manufacturer information</font>
+              </font>
+            </h5>
+            <button type="button" class="btn btn-info float-right" (click)="open('add', null)">
+              <i class="fas fa-plus"></i>
+              <font style="vertical-align: inherit;">
+                <font style="vertical-align: inherit;">new
+                </font>
+              </font>
+            </button>
+          </div>
+          <!-- /.card-header -->
+          <div class="card-body">
+
+            <div class="row">
+              <div class="col-12 col-md-4">
+                <div class="form-group">
+                  <label>
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">Select work item</font>
+                    </font>
+                  </label>
+                  <div class="select2-info">
+                    <ng-select2 [data]="dataList" [width]="250" [options]="options" [placeholder]="'please select'"
+                      (valueChanged)="onChange($event)">
+                    </ng-select2>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-md-4">
+                <div class="form-group">
+                  <label>
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">Select Manufacture Region</font>
+                    </font>
+                  </label>
+                  <div class="select2-info">
+                    <ng-select2 [data]="dataList1" [width]="250" [options]="options" [placeholder]="'please select'"
+                      (valueChanged)="onChange1($event)">
+                    </ng-select2>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" id="datamanage_table"
+                  class="table table-striped table-bordered table-hover">
+                  <thead>
+                    <tr>
+                      <th>ManufacturerInformation</th>
+                      <th>Manufacturertype</th>
+                      <th>ContactPerson</th>
+                      <th>edit</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let datas of tableData">
+                      <td>
+                        {{datas.manufacture_information.businessNo}}<br>
+                        {{datas.manufacture_information.supplierName}}<br>
+                        <span class="badge bg-secondary" *ngFor="let index of datas.manufacture_information.location">
+                          {{dataList1[index-1].text}}
+                        </span>
+                      </td>
+                      <td>
+                        <span class="badge bg-info" *ngFor="let type of datas.manufacture_type.supplierDetailItem">
+                          {{type}}
+                        </span>
+                        <br>
+                        <span class="badge bg-secondary" *ngFor="let index of datas.manufacture_type.workTypes">
+                          {{dataList[index-1].text}}
+                        </span>
+                      </td>
+                      <td>
+                        <span>
+                          {{datas.contact_person.contactName}}
+                        </span><br>
+                        <span>
+                          {{datas.contact_person.contactPhone}}
+                        </span>
+                      </td>
+                      <td>
+                        <a style="cursor: pointer;" (click)="open('edit', datas._id)"><i
+                            class="fas fa-edit mr-2"></i></a>
+                        <a style="cursor: pointer;" (click)="delete(datas._id)"><i class="fas fa-trash-alt"></i></a>
+                        <div *ngIf="datas.edit.status">
+                          <span class="badge bg-danger">{{datas.edit.badge}}</span><br>
+                          <span class="text-danger">{{datas.edit.value}}</span>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /.col -->
+    </div>
+    <!-- /.row -->
+  </div>
+  <!-- /.container-fluid -->
+  <app-modal #modal_add [modalConfig]="addmodalConfig">
+    <form>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group">
+            <label>廠商名稱</label>
+            <input type="text" class="form-control">
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <label>統一編號</label>
+            <input type="text" class="form-control">
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <label>不良紀錄</label>
+            <select class="form-control">
+              <option selected="">無</option>
+              <option>有</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <label>聯絡人</label>
+            <input type="text" class="form-control">
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <label>連絡電話</label>
+            <input type="text" class="form-control">
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" class="form-control">
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <label>縣市</label>
+            <select class="form-control">
+              <option>一般</option>
+              <option>急件</option>
+              <option>特級</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <label>地區</label>
+            <select class="form-control">
+              <option>一般</option>
+              <option>急件</option>
+              <option>特級</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="form-group">
+            <label>地址</label>
+            <input type="text" class="form-control">
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <label>合作模式</label>
+            <select class="form-control">
+              <option>統包</option>
+              <option>大包</option>
+              <option>小包</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <label>工班人數</label>
+            <input type="number" class="form-control">
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="form-group">
+            <label>負責工項</label>
+            <div class="select2-info">
+              <select class="select2 select2-hidden-accessible" multiple="" data-placeholder="choose"
+                data-dropdown-css-class="select2-info" style="width: 100%;" data-select2-id="5" tabindex="-1"
+                aria-hidden="true">
+                <option>泥做</option>
+                <option>油漆</option>
+                <option>吊車</option>
+                <option>堆高機</option>
+                <option>怪手</option>
+              </select><span class="select2 select2-container select2-container--default" dir="ltr" data-select2-id="6"
+                style="width: 100%;"><span class="selection"><span class="select2-selection select2-selection--multiple"
+                    role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="-1" aria-disabled="false">
+                    <ul class="select2-selection__rendered">
+                      <li class="select2-search select2-search--inline"><input class="select2-search__field"
+                          type="search" tabindex="0" autocomplete="off" autocorrect="off" autocapitalize="none"
+                          spellcheck="false" role="searchbox" aria-autocomplete="list" placeholder="choose"
+                          style="width: 0px;"></li>
+                    </ul>
+                  </span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>負責採發人員</label>
+            <select class="form-control">
+              <option>蕭慧慈</option>
+              <option>王大明</option>
+              <option>小包包</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>備註</label>
+            <input type="text" class="form-control">
+          </div>
+        </div>
+      </div>
+    </form>
+  </app-modal>
+  <app-modal #bankinfomodal [modalConfig]="modalConfig">
+    <form>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>銀行名稱</label>
+            <select class="form-control">
+              <option>元大銀行</option>
+              <option>台新銀行</option>
+              <option>台北富邦</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>分行名稱</label>
+            <input type="text" class="form-control">
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>銀行帳號</label>
+            <input type="number" class="form-control">
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>戶名</label>
+            <input type="text" class="form-control">
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="form-group">
+            <label for="exampleInputFile">存摺照片上傳</label>
+            <div class="input-group">
+              <div class="custom-file">
+                <input type="file" class="custom-file-input" id="exampleInputFile">
+                <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+              </div>
+              <div class="input-group-append">
+                <span class="input-group-text">Upload</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </form>
+  </app-modal>
+</section>

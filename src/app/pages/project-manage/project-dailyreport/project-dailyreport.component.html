@@ -1,0 +1,45 @@
+<div class="modal-header">
+  <h4 class="modal-title">施工日誌</h4>
+  <button type="button" class="btn btn-tool" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <i class="fas fa-times"></i>
+  </button>
+</div>
+<div class="modal-body">
+
+    <div class="row">
+      <div class="col-md-12">
+        <table datatable [dtOptions]="dtOptions" class="table table-striped table-bordered table-hover nowrap">
+          <thead>
+            <tr>
+              <th>日期</th>
+              <th>出勤</th>
+              <th>預計完成</th>
+              <th>實際完成</th>
+              <th>工期</th>
+              <th>本日施作工項</th>
+              <th>上級提醒注意事項</th>
+              <th>需公司協助事項</th>
+              <th>內容</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td><button type="button" data-widget="" data-toggle="tooltip" title="檢視" class="btn btn-default"
+                (click)="open('view', 0)">檢視</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  <div class="modal-footer justify-content-between">
+    <button type="button" class="btn btn-default" (click)="activeModal.close('Close click')">Close</button>
+  </div>

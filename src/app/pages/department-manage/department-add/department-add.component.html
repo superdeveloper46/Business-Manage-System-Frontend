@@ -1,0 +1,63 @@
+<div class="modal-header">
+  <h4 class="modal-title">新增部門</h4>
+  <button type="button" class="btn btn-tool" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <i class="fas fa-times"></i>
+  </button>
+</div>
+<div class="modal-body">
+  <form class="form-horizontal" [formGroup]="CreateForm" method="post" action="" >
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label><code>*</code>部門名稱</label>
+          <input type="text" formControlName="depName" class="form-control">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label><code>*</code>部門層級(公司層級為0)</label>
+          <input type="number" formControlName="level" class="form-control">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label><code>*</code>部門代號</label>
+          <input type="text" formControlName="depCode" class="form-control">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>中文代稱</label>
+          <input type="text" formControlName="depChineseCode" class="form-control">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>上層部門</label>
+            <ng-select2
+            [data]="s2departments"
+            [width]="'100%'"
+            [placeholder]="'請選擇上層部門'"
+            formControlName = "rootDepartmentId"
+              (valueChanged)="onChange_departments($event)"
+              [allowClear]="true">
+            </ng-select2>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label><code>*</code>排序</label>
+          <input type="number" formControlName="sort" class="form-control">
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <div class="modal-footer justify-content-between">
+    <button type="button" class="btn btn-default" (click)="activeModal.close('Close click')">Close</button>
+    <button type="button" class="btn btn-info" (click)="addDepartment()">確定</button>
+  </div>

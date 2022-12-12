@@ -1,0 +1,134 @@
+<div class="modal-header">
+  <h4 class="modal-title">{{material.materialName}}</h4>
+  <button type="button" class="btn btn-tool" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <i class="fas fa-times"></i>
+  </button>
+</div>
+<div class="modal-body">
+  <form class="form-horizontal" [formGroup]="EditForm" method="post" action="">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label><code>*</code>預定送審日期</label>
+          <input type="date" class="form-control" formControlName="materialExpectDate">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label><code>*</code>實際送審日期</label>
+          <input type="date" class="form-control" formControlName="materialActualDate">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label><code>*</code><code>*</code>契約數量</label>
+          <input type="number" class="form-control" formControlName="materialQuantity">
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="form-group">
+          <div class="custom-control custom-checkbox">
+            <input class="custom-control-input" type="checkbox" id="customCheckbox1" [value]="true" formControlName="getSampleTest">
+            <label for="customCheckbox1" class="custom-control-label">取樣試驗</label>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="form-group">
+          <div class="custom-control custom-checkbox">
+            <input class="custom-control-input" type="checkbox" id="customCheckbox3" [value]="true" formControlName="haveSample">
+            <label for="customCheckbox3" class="custom-control-label">樣品</label>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>廠驗日期</label>
+          <div class="input-group">
+            <div class="custom-file">
+              <input type="date" class="form-control" formControlName="materialCheckDate">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label><code>*</code>協力廠商資料</label>
+          <div class="input-group">
+            <div class="custom-file">
+              <input #fileUpload type="file" class="custom-file-input" accept=".pdf"  (change)="fileSelected($event,1)">
+              <label class="custom-file-label" for="fileUpload">{{fileName1 ? fileName1 : '請上傳PDF檔案(.pdf)'}}</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label><code>*</code>型錄</label>
+          <div class="input-group">
+            <div class="custom-file">
+              <input #fileUpload type="file" class="custom-file-input" accept=".pdf"  (change)="fileSelected($event,2)">
+              <label class="custom-file-label" for="fileUpload">{{fileName2 ? fileName2 : '請上傳PDF檔案(.pdf)'}}</label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="form-group">
+          <label><code>*</code>相關試驗報告</label>
+          <div class="input-group">
+            <div class="custom-file">
+              <input #fileUpload type="file" class="custom-file-input" accept=".pdf"  (change)="fileSelected($event,3)">
+              <label class="custom-file-label" for="fileUpload">{{fileName3 ? fileName3 : '請上傳PDF檔案(.pdf)'}}</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group">
+          <label>其他</label>
+          <input type="text" class="form-control"  formControlName="materialOthers">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>審查日期</label>
+          <input type="date" class="form-control" formControlName="materialReviewDate">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>審查結果</label>
+          <select class="form-control" formControlName="pass">
+            <option value="true" selected="">通過</option>
+            <option value="false">不通過</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group">
+          <label>備註</label>
+          <input type="text" class="form-control" formControlName="materialRemark">
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <div class="modal-footer justify-content-between">
+    <button type="button" class="btn btn-default" (click)="activeModal.close('Close click')">Close</button>
+    <button type="button" class="btn btn-info" (click)="editMaterial()">確定</button>
+  </div>

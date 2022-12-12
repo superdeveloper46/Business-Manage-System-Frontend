@@ -1,0 +1,65 @@
+<div class="modal-header">
+  <h4 class="modal-title">新增選單</h4>
+  <button type="button" class="btn btn-tool" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <i class="fas fa-times"></i>
+  </button>
+</div>
+<div class="modal-body">
+  <form class="form-horizontal" [formGroup]="CreateForm" method="post" action="">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label><code>*</code>選單模組名稱</label>
+          <input type="text" formControlName="moduleName" class="form-control">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label><code>*</code>控制器名稱</label>
+          <input type="text" formControlName="controllerName" class="form-control">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group">
+          <label><code>*</code>參數 (JSON) </label>
+          <textarea formControlName="parameter" class="form-control" placeholder="[{&quot;a&quot;: &quot;1&quot;}, {&quot;b&quot;: &quot;2&quot;}, {&quot;c&quot;: &quot;3&quot;}]" ></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>父模組</label>
+          <ng-select2 [data]="s2ParentgetfunctionModules" [width]="'100%'" [placeholder]="'請選擇'" (valueChanged)="onChange_ParentgetfunctionModules($event)" formControlName="rootFunctionId" [allowClear]="true">
+          </ng-select2>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label><code>*</code>選單層級</label>
+          <input type="number" formControlName="level" class="form-control" min="1">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>選單Class</label>
+          <input type="text" formControlName="menuClass" class="form-control">
+        </div>
+      </div>
+      <!-- <div class="col-md-6">
+        <div class="form-group">
+          <label>排序</label>
+          <input type="number" formControlName="sort" class="form-control">
+        </div>
+      </div> -->
+    </div>
+  </form>
+
+  <div class="modal-footer justify-content-between">
+    <button type="button" class="btn btn-default" (click)="activeModal.close('Close click')">Close</button>
+    <button type="button" class="btn btn-info" (click)="addFunctionModule()">確定</button>
+  </div>

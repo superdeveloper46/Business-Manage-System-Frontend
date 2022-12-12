@@ -1,0 +1,89 @@
+<section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>表單管理
+          </h1>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item active">表單管理</li>
+          </ol>
+        </div>
+      </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">
+              <h5 class="card-title mt-2">表單管理</h5>
+              <button type="button" class="btn btn-info float-right" (click)="openModal('add',{})">
+                <i class="fas fa-plus"></i> 新增
+              </button>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+
+              <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" id="formmanage_table"
+                class="table table-striped table-bordered table-hover">
+                <thead>
+                  <tr>
+                    <th>表單編號</th>
+                    <th>表單名稱</th>
+                    <th>專案階段</th>
+                    <th>區塊管理</th>
+                    <th>流程管理</th>
+
+                    <th>編輯</th>
+                    <th>停用</th>
+                  </tr>
+                </thead>
+                <tbody *ngFor="let datas of tableData">
+                  <tr>
+                    <td>
+                      {{datas.formCode}}
+                    </td>
+                    <td>
+                      {{datas.formName}}
+                    </td>
+                    <td>
+                      {{datas.projectStep.stepName}}
+                    </td>
+                    <td>
+                        <span class="btn btn-default" (click)="openModal('formsection', datas._id)">檢視</span>
+                    </td>
+                    <td>
+                        <span class="btn btn-default" (click)="openModal('formflow', datas._id)">檢視</span>
+                    </td>
+                    <td>
+                        <a style="cursor: pointer;" (click)="openModal('edit', datas)"><i class="fas fa-edit ml-2 mr-3"></i></a>
+                        <a style="cursor: pointer;" (click)="deleteRow(datas._id)"><i class="fas fa-trash-alt text-danger mr-2"></i></a>
+                    </td>
+                    <td class="text-danger">
+                        <div class="form-check">
+                          <input
+                            class="form-check-input"
+                            type="checkbox"
+                            value=""
+                            id="flexCheckChecked"
+                            [checked]="!datas.enable"
+                            (change)="setDisable($event.target.checked,datas)"
+                          />
+                        </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </div>
+  </section>

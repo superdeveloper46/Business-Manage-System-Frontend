@@ -1,0 +1,77 @@
+<div class="modal-header">
+  <h4 class="modal-title">關懷紀錄</h4>
+</div>
+<div class="modal-body">
+  <div class="row">
+    <div class="col-md-12">
+      <form class="form-horizontal" [formGroup]="CreateForm" method="post" action="">
+        <div *ngIf="status==='2' && this.RightObj['update']" class="card">
+          <div class="card-header">
+            <h5 class="card-title mt-2">上次關懷時間：<span *ngIf="lastCareDate !== 'NaN-NaN-NaN'">{{lastCareDate}}</span></h5>
+            <div class="card-tools">
+              <button type="button" class="btn bnt-tool " data-card-widget="collapse">
+                <i class="fas fa-minus"></i>
+              </button>
+
+            </div>
+          </div>
+          <!-- /.card-header -->
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label><code>*</code>負責採發人員</label>
+                  <ng-select2 [data]="s2Employees" [width]="'100%'" [placeholder]="'請選擇'"
+                    (valueChanged)="onChange_Employees($event)" [allowClear]="true">
+                  </ng-select2>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label><code>*</code>關懷備註</label>
+                  <textarea formControlName="content" class="form-control" placeholder="請填寫關懷內容"></textarea>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <button type="button" *ngIf="this.RightObj['update']" class="btn btn-info float-right" (click)="addSupplierCareList()">儲存</button>
+              </div>
+            </div>
+            <!-- /.card-body -->
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+
+      <table datatable [dtOptions]="dtOptions"
+        class="table table-striped table-bordered table-hover nowrap">
+        <thead>
+          <tr>
+            <th>日期 </th>
+            <th style="width: 60%">內容</th>
+            <th>採發</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of supplierCareList">
+            <td>{{item.contentDate  | date:'yyyy/MM/dd'}}</td>
+            <td>{{item.content}}</td>
+            <td>{{item.empName}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<div class="modal-footer justify-content-between">
+  <button type="button" class="btn btn-default" (click)="activeModal.close('Close click')">Close</button>
+  <button type="button" class="btn btn-info" (click)="activeModal.close('Close click')">確定</button>
+</div>

@@ -1,0 +1,28 @@
+<div #contact>
+  <div class="row" id="e_{{k2}}">
+    <div class="col-md-4">
+      <div class="form-group">
+        <input type="hidden" name="EmergencyContact[{{k2}}]._id">
+        <input type="text" class="form-control" name="EmergencyContact[{{k2}}].contactName">
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="form-group">
+        <input type="text" class="form-control" name="EmergencyContact[{{k2}}].relationship">
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group">
+        <input type="text" class="form-control" name="EmergencyContact[{{k2}}].contactPhone">
+      </div>
+    </div>
+    <div class="col-md-1">
+      <div class="form-group">
+        <button type="button" class="btn btn-tool text-danger" data-toggle="tooltip" title="刪除"
+          (click)="del(k2)">
+          <i class="fas fa-trash-alt"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

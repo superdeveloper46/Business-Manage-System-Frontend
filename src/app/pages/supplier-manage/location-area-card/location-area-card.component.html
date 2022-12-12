@@ -1,0 +1,24 @@
+<div class="row" id="l_{{k}}">
+  <div class="col-md-3">
+    <div class="form-group">
+      <ng-select2 [data]="s2Locations_List" [width]="'100%'" [placeholder]="'請選擇'"
+        (valueChanged)="onChange_Locations($event,k)" class="select2" [value]="locationAreaList_locationName[k]" [allowClear]="true">
+      </ng-select2>
+    </div>
+  </div>
+  <div class="col-md-8">
+    <div class="form-group">
+      <ng-select2 [data]="s2Areas_List" [width]="'100%'" [placeholder]="'請選擇'"  [options]="options"
+        (valueChanged)="onChange_AreasList($event,k)" class="select2" [allowClear]="true">
+      </ng-select2>
+    </div>
+  </div>
+  <div class="col-md-1">
+    <div class="form-group">
+      <button type="button" class="btn btn-tool text-danger" data-toggle="tooltip" title="刪除"
+        (click)="del(k)">
+        <i class="fas fa-trash-alt"></i>
+      </button>
+    </div>
+  </div>
+</div>

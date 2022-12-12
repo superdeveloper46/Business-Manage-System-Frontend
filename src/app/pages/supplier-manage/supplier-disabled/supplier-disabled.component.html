@@ -1,0 +1,28 @@
+<div class="modal-header">
+  <h4 class="modal-title">停用廠商</h4>
+  <button type="button" class="btn btn-tool" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <i class="fas fa-times"></i>
+  </button>
+</div>
+<div class="modal-body">
+  <form class="form-horizontal" [formGroup]="EditForm" method="post" action="">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group">
+          <label><code>*</code>停用日期</label>
+          <input type="date" formControlName="disableDay" class="form-control">
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="form-group">
+          <label><code>*</code>停用備註</label>
+          <textarea formControlName="disableRemark" class="form-control"></textarea>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="modal-footer justify-content-between">
+  <button type="button" class="btn btn-default" (click)="activeModal.close('Close click')">Close</button>
+  <button type="button" class="btn btn-info" (click)="disabledSupplier()">確定</button>
+</div>

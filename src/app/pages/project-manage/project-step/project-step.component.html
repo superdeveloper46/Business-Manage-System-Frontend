@@ -1,0 +1,63 @@
+<div class="modal-header">
+  <h4 class="modal-title">專案階段 </h4>
+  <button type="button" class="btn btn-tool" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <i class="fas fa-times"></i>
+  </button>
+</div>
+<div class="modal-body">
+  <form class="form-horizontal" [formGroup]="CreateForm" method="post" action="">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group">
+          <label><code>*</code>上一階段備註</label>
+          <textarea class="form-control"></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label><code>*</code>啟動下一階段</label>
+          <select class="form-control">
+            <option>投標</option>
+            <option selected>施工</option>
+            <option>竣工結案</option>
+            <option>營運維護</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label><code>*</code>預計開始日</label>
+          <input type="date" class="form-control">
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <table datatable [dtOptions]="dtOptions"
+        class="table table-striped table-bordered table-hover nowrap">
+        <thead>
+          <tr>
+            <th>階段 </th>
+            <th>預計開始日</th>
+            <th style="width: 60%">備註</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+    </div>
+  </form>
+
+  <div class="modal-footer justify-content-between">
+    <button type="button" class="btn btn-default" (click)="activeModal.close('Close click')">Close</button>
+    <button type="button" class="btn btn-info" (click)="addProject()">確定</button>
+  </div>

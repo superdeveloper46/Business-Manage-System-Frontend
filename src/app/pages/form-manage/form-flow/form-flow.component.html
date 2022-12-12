@@ -1,0 +1,17 @@
+<div class="modal-header">
+    <h4 class="modal-title">
+        <button type="button" class="btn btn-info" (click)="addNewFormFlow(null,'last')">
+            <i class="fas fa-plus"></i> 新增流程
+        </button>
+    </h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.close('Close click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <ng-template #container></ng-template>
+</div>
+<div class="modal-footer justify-content-between">
+    <button type="button" class="btn btn-default btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
+    <!-- <button class="btn btn-primary" (click)="saveFormSection('add')">Confirm</button> -->
+</div>

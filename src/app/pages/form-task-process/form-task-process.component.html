@@ -1,0 +1,37 @@
+<section class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1>{{formName}}
+        </h1>
+      </div>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="#">Home</a></li>
+          <li class="breadcrumb-item active">{{formName}}</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12" *ngIf="sectionRight.length !== 0">
+
+        <app-detail-section *ngIf="detail!=='true'" [expand]="false" [title]="component[0].title"
+          [action]="component[0].actions" [parentComp]="this" [isMenuExtended]="false" [component]="component[0].btns">
+        </app-detail-section>
+
+        <!-- 採購申請 -->
+        <app-purchase-form-process *ngIf="formId ==='20221027173636377'" (loadBasicData)="loadBasicData()"
+          (setInitComponent)="setInitComponent($event.detailData)" [parentComp]="this" [detailData]="detailData" [formTaskId]="formTaskId"
+          [formAndProjectData]="formAndProjectData" [contractTypes]="contractTypes" [scope]="scope" [rule]="rule"
+          [taskStatusId]="taskStatusId" [component]="component" [dtOptions]="dtOptions" [sectionRight]="sectionRight">
+        </app-purchase-form-process>
+
+      </div>
+    </div>
+  </div>
+</section>

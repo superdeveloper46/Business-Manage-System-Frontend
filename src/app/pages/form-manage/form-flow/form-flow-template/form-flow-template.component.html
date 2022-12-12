@@ -1,0 +1,165 @@
+
+<div class="card">
+    <div class="card-header">
+        <h5 class="card-title mt-2">
+            <label style="width:42px">
+                <i *ngIf="_id != null && orderindex!='first'" class="fas fa-arrow-circle-up text-info mr-1" (click)="changeMyOrder('up')"></i>
+                <i *ngIf="_id != null && orderindex!='last'" class="fas fa-arrow-circle-down text-info" (click)="changeMyOrder('down')"></i>
+            </label>
+            {{selectedFlowTypeName}} {{targetName}}
+        </h5>
+        <div class="card-tools">
+
+        <button class="btn btn-warning mr-1" (click)="remove_me()">
+            刪除
+        </button>
+        <button type="button" class="btn btn-info" (click)="saveData()">
+            儲存
+        </button>
+
+        <button type="button" class="btn bnt-tool" data-card-widget="collapse" (click)="handleMainMenuAction()">
+
+            <i
+                [ngClass]="isMenuExtended ? 'fas fa-minus' : 'fas fa-plus'"
+                [@rotate]="isMenuExtended"
+            ></i>
+            <!-- <i
+                *ngIf="isExpandable"
+                class="right fas fa-angle-right"
+                [@rotate]="isMenuExtended"
+            ></i> -->
+        </button>
+        </div>
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body" [@openClose]="isMenuExtended">
+        <div class="row">
+        <div class="col-sm-4">
+            <div class="form-group">
+            <label>表單流程編號</label>
+            <input type="text" class="form-control" placeholder="auto numbering" [(ngModel)]="formFlowNo" disabled>
+            </div>
+        </div>
+        <div class="col-sm-8">
+
+        </div>
+        <div class="col-sm-4">
+            <div class="form-group">
+            <label>流程類型</label>
+            <ng-select2
+                    [data]="flowTypeList"
+                    [value]="selectedFlowTypeId"
+                    width="100%"
+                    placeholder="Select step"
+                    (valueChanged)="changeFormFlowTitle($event)">
+                <option *ngFor="let data of flowTypeList" [value]="data.id">{{data.text}}</option>
+            </ng-select2>
+            </div>
+        </div>
+        <div class="col-sm-8">
+            <div class="form-group" *ngIf="selectedFlowTypeId == '3'">
+                <label>選擇部門</label>
+
+                <ng-select2
+                        width="100%"
+                        placeholder="Select department"
+                        [value]="targetId"
+                        (valueChanged)="changeCombo('dep',$event)">
+                    <option *ngFor="let data of departmentList" [value]="data._id">{{data.depName}}</option>
+                </ng-select2>
+            </div>
+            <div class="form-group" *ngIf="selectedFlowTypeId == '4'">
+                <label>選擇職務</label>
+
+                <ng-select2
+                        width="100%"
+                        placeholder="Select job"
+                        [value]="targetId"
+                        (valueChanged)="changeCombo('job',$event)">
+                    <option *ngFor="let data of jobList" [value]="data._id">{{data.jobName}}</option>
+                </ng-select2>
+            </div>
+            <div style="display:flex">
+                <div class="col-sm-6" *ngIf="selectedFlowTypeId == '5'">
+                    <div class="form-group">
+                    <label>選擇部門</label>
+
+                    <ng-select2
+                            width="100%"
+                            placeholder="Select department"
+                            (valueChanged)="changeManDep($event,true)">
+                        <option *ngFor="let data of departmentList" [value]="data._id">{{data.depName}}</option>
+                    </ng-select2>
+                    </div>
+                </div>
+
+
+                <div class="col-sm-6" *ngIf="selectedFlowTypeId == '5'">
+                    <div class="form-group">
+                    <label>選擇員工</label>
+                    <ng-select2
+                            width="100%"
+                            placeholder="Select department"
+                            [value]="targetId"
+                            (valueChanged)="changeCombo('emp',$event)">
+                        <option *ngFor="let data of filteredEmployeeList" [value]="data._id">{{data.empName}}</option>
+                    </ng-select2>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-sm-12">
+            <table
+                class="table table-striped table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>表單區塊名稱</th>
+                        <th>表單區塊編號</th>
+                        <th>允許編輯</th>
+                        <th>是否顯示</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let datas of defaultData">
+                        <td>
+                        {{datas.formSectionName}}
+                        </td>
+                        <td>
+                        {{datas.formSectionNo}}
+                        </td>
+                        <td class="text-danger">
+                            <div class="form-check">
+                              <input
+                                class="form-check-input"
+                                type="checkbox"
+                                value=""
+                                id="{{_id}}allowEdit{{datas._id}}"
+                                [checked]="datas.allowEdit || false"
+                                (change)="setAllowEdit($event.target.checked,datas._id)"
+                              />
+                            </div>
+                        </td>
+                        <td class="text-danger">
+                            <div class="form-check">
+                                <input
+                                  class="form-check-input"
+                                  type="checkbox"
+                                  value=""
+                                  id="{{_id}}allowShow{{datas._id}}"
+                                  [checked]="datas.allowShow || false"
+                                  (change)="setAllowShow($event.target.checked,datas._id)"
+                                />
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+        </div>
+    </div>
+    <!-- /.card-body -->
+</div>

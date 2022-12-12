@@ -1,0 +1,42 @@
+<div class="modal-header">
+  <h4 class="modal-title">新增商品</h4>
+  <button type="button" class="btn btn-tool" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <i class="fas fa-times"></i>
+  </button>
+</div>
+<div class="modal-body">
+  <form class="form-horizontal" id="EditForm" method="post" action="">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="form-group">
+          <label><code>*</code>商品名稱</label>
+          <input type="text" [formControl]="GoodsName" class="form-control">
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <label><code>*</code>商品類別</label>
+          <select #selectGoodTypes class="form-control" [formControl]="GoodsType">
+            <option value="0">請選擇商品類別</option>
+            <option *ngFor="let goodType of goodTypes" [value]="goodType.id">
+              {{goodType.goodsTypeName}}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-8">
+        <div class="form-group">
+          <label><code>*</code>備註</label>
+          <textarea class="form-control" [formControl]="GoodsRemark"></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <button type="button" class="btn btn-warning form-control" (click)="editGood()">修改商品</button>
+    </div>
+  </form>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
+  </div>
+

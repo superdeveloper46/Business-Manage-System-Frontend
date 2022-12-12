@@ -1,0 +1,455 @@
+
+        <app-detail-section *ngIf="component[1].actions.allowShow" (refreshFormTaskDetailData)="refreshFormTaskDetailData()"
+          [title]="component[1].title+' ('+detailData.formTaskNo+')'" [action]="component[1].actions"
+          [parentComp]="parentComp" [isMenuExtended]="true" [component]="component[1].btns">
+          <div class="row mb-3">
+            <div class="col-md-3">
+              <div class="form-group">
+                <label><span class="text-danger">*</span>工程名稱</label>
+                <input type="text" class="form-control" [value]="formAndProjectData?.projectName"
+                  placeholder="文心南路下水道工程" disabled>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label><span class="text-danger">*</span>工項名稱</label>
+                <input type="text" class="form-control" [value]="detailData?.workType?.workTypeName" placeholder="工項名稱"
+                  disabled>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label><span class="text-danger">*</span>速別</label>
+                <input type="text" class="form-control" [value]="detailData?.emergencyType?.emergencyName"
+                  placeholder="請採速別" disabled>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label><span class="text-danger">*</span>請採期限</label>
+                <input type="date" class="form-control"
+                  [value]="detailData?.formTaskContent?.purchaseForm?.purchaseDeadLine.substr(0,10)" disabled>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label><span class="text-danger">*</span>工項預計開始日</label>
+                <input type="date" class="form-control"
+                  [value]="detailData?.formTaskContent?.purchaseForm?.workBeginTime.substr(0,10)" disabled>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label><span class="text-danger">*</span>工項預計結束日</label>
+                <input type="date" class="form-control"
+                  [value]="detailData?.formTaskContent?.purchaseForm?.workEndTime.substr(0,10)" disabled>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>應出工數</label>
+                <input type="text" class="form-control" [value]="detailData?.formTaskContent?.purchaseForm?.workers"
+                  placeholder="應出工數" disabled>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>推薦廠商</label>
+                <input type="text" class="form-control" [value]="detailData?.supplier?.supplierName" placeholder="推薦廠商"
+                  disabled>
+              </div>
+            </div>
+          </div>
+        </app-detail-section>
+
+        <app-detail-section *ngIf="component[2].actions.allowShow" (refreshFormTaskDetailData)="refreshFormTaskDetailData()"  [title]="component[2].title"
+          [action]="component[2].actions" [parentComp]="parentComp" [isMenuExtended]="true" [component]="component[2].btns">
+          <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger_pcces"
+            class="table table-striped table-bordered table-hover nowrap" id="pcces_table">
+            <thead>
+              <tr>
+                <th>物料編號</th>
+                <th>物料名稱</th>
+                <th>圖說編號</th>
+                <th>規格</th>
+                <th>申購數量</th>
+                <th>單位</th>
+                <th *ngIf="component[2].actions.allowEdit">刪除</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let datas of pccesData;">
+                <td>{{datas.pccesId}}</td>
+                <td>{{datas.description}}</td>
+                <td>{{datas.diagramNo}}</td>
+                <td>{{datas.spec}}</td>
+                <td>
+                  <input *ngIf="component[2].actions.allowEdit" type="number" [value]="datas.quantity"
+                    class="form-control" (focusout)="quantityChange($event, datas._id)">
+                  {{component[2].actions.allowEdit?'':datas.quantity}}
+                </td>
+                <td>{{datas.unit}}</td>
+                <td *ngIf="component[2].actions.allowEdit" style="text-align: center;"><a style="cursor: pointer;"
+                    (click)="deletePccesData(datas._id)"><i class="fas fa-trash-alt text-danger mr-2"></i></a></td>
+              </tr>
+            </tbody>
+          </table>
+        </app-detail-section>
+
+        <app-detail-section *ngIf="component[3].actions.allowShow" (refreshFormTaskDetailData)="refreshFormTaskDetailData()"  [title]="component[3].title"
+          [action]="component[3].actions" [isMenuExtended]="true" [component]="component[3].btns">
+          <div class="row">
+            <div class="col-md-2">
+              <div class="form-group">
+                <label for="">工程範圍上傳</label>
+                <div>
+                  <button *ngIf="component[3].actions.allowEdit" type="button" class="btn btn-info"
+                    (click)="openModal('scope', '', component[3].actions)">範本製作</button>
+                  <button *ngIf="!(component[3].actions.allowEdit)" type="button" class="btn btn-default"
+                    (click)="openModal('scope', '', component[3].actions)">檢視</button>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-group">
+                <label for="">工程規範上傳</label>
+                <div>
+                  <button *ngIf="component[3].actions.allowEdit" type="button" class="btn btn-info"
+                    (click)="openModal('rule', '', component[3].actions)">範本製作</button>
+                  <button *ngIf="!(component[3].actions.allowEdit)" type="button" class="btn btn-default"
+                    (click)="openModal('rule', '', component[3].actions)">檢視</button>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="">採購範圍圖說上傳</label>
+                <div *ngIf="component[3].actions.allowEdit">
+                  <div class="input-group">
+                    <div class="custom-file">
+                      <input #fileUpload type="file" class="custom-file-input" accept=".pdf"
+                        (change)="illustrationFileSelected($event)">
+                      <label class="custom-file-label" for="fileUpload">{{illustration ? illustration :
+                        '請上傳檔案'}}</label>
+                    </div>
+
+                  </div>
+                  <div *ngIf="loaded !== 0 && load_selected === 'illustration'" class="progress my-3">
+                    <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar"
+                      attr.aria-valuenow="{{ loaded }}" aria-valuemin="0" aria-valuemax="100"
+                      [ngStyle]="{ width: loaded+ '%' }">
+                      {{ loaded }}%
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <button *ngIf="!(component[3].actions.allowEdit)" type="button" class="btn btn-default"
+                    (click)="viewPdf('formTask_illustration/'+illustration)">檢視</button>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="">採購數量計算式上傳</label>
+                <div *ngIf="component[3].actions.allowEdit">
+                  <div class="input-group">
+                    <div class="custom-file">
+                      <input #fileUpload type="file" class="custom-file-input" accept=".pdf"
+                        (change)="calculationFileSelected($event)">
+                      <label class="custom-file-label" for="fileUpload">{{calculation ? calculation : '請上傳檔案'}}</label>
+                    </div>
+                  </div>
+                  <div *ngIf="loaded !== 0 && load_selected === 'calculation'" class="progress my-3">
+                    <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar"
+                      attr.aria-valuenow="{{ loaded }}" aria-valuemin="0" aria-valuemax="100"
+                      [ngStyle]="{ width: loaded+ '%' }">
+                      {{ loaded }}%
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <button *ngIf="!(component[3].actions.allowEdit)" type="button" class="btn btn-default"
+                    (click)="viewPdf('formTask_calculation/'+calculation)">檢視</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12 form-group">
+              <label for="">備註</label>
+              <ng-container *ngIf="component[3].actions.allowEdit">
+                <textarea class="form-control" (focusout)="addRemark()" (input)="remarkChange($event)" [value]="remark"
+                  formControlName="remark" cols="30" rows="3">
+                      </textarea>
+              </ng-container>
+              <ng-container *ngIf="!(component[3].actions.allowEdit)">
+                <textarea disabled class="form-control" (focusout)="addRemark()" (input)="remarkChange($event)"
+                  [value]="remark" formControlName="remark" cols="30" rows="3">
+                      </textarea>
+              </ng-container>
+
+            </div>
+          </div>
+        </app-detail-section>
+
+        <app-detail-section *ngIf="component[4].actions.allowShow" (refreshFormTaskDetailData)="refreshFormTaskDetailData()"  [title]="component[4].title"
+          [action]="component[4].actions" [parentComp]="parentComp" [isMenuExtended]="true" [component]="component[4].btns">
+          <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger_inquiry"
+            class="table table-striped table-bordered table-hover nowrap" id="inquiry_table">
+            <thead>
+              <tr>
+                <th>廠商名稱</th>
+                <th>統一編號</th>
+                <th>聯絡人</th>
+                <th>電話號碼</th>
+                <th>既有/開發</th>
+                <th>不良紀錄</th>
+                <th>預付款</th>
+                <th>總金額</th>
+                <th>比例</th>
+                <th>備註</th>
+                <th>物料明細</th>
+                <th>報價單</th>
+                <th *ngIf="component[4].actions.allowEdit">刪除</th>
+              </tr>
+            </thead>
+            <tbody>
+              <ng-container *ngFor="let datas of inquiryData;">
+                <tr *ngIf="datas.supplier !== null" >
+                  <td>{{datas.supplier?.supplierName}}</td>
+                  <td>{{datas.supplier?.businessNo}}</td>
+                  <td>{{datas.supplier?.contactName}}</td>
+                  <td>{{datas.supplier?.contactPhone}}</td>
+                  <td>{{datas.new?"開發": "既有"}}</td>
+                  <td>{{datas.supplier?.badRecord}}</td>
+                  <td>{{datas.prepayMoney?datas.prepayMoney:'0'}}</td>
+                  <td>{{datas.subtotal?datas.subtotal:''}}</td>
+                  <td>{{datas.prepayMoney && datas.subtotal? ((datas.prepayMoney)/(datas.subtotal)*100).toFixed(2)+"%":
+                    '0%'}}</td>
+                  <td>{{datas.supplier?.remark}}</td>
+                  <td>
+                    <button *ngIf="component[4].actions.allowEdit" type="button" class="btn btn-info"
+                      (click)="openModal('inquiry-detail-add', datas._id, component[4].actions)">編輯
+                    </button>
+                    <button *ngIf="!(component[4].actions.allowEdit)" type="button" class="btn btn-default"
+                      (click)="openModal('inquiry-detail-add', datas._id, component[4].actions)">檢視
+                    </button>
+                  </td>
+                  <td>
+                    <span *ngIf="component[4].actions.allowEdit" class="btn btn-info btn-file">
+                      上傳
+                      <input #fileUpload type="file" accept=".pdf" (change)="quotationUpload($event, datas._id)">
+                    </span>
+
+                    <div *ngIf="loaded !== 0 && load_selected === 'quotation'" class="progress my-3">
+                      <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar"
+                        attr.aria-valuenow="{{ loaded }}" aria-valuemin="0" aria-valuemax="100"
+                        [ngStyle]="{ width: loaded+ '%' }">
+                        {{ loaded }}%
+                      </div>
+                    </div>
+
+                    <button *ngIf="!(component[4].actions.allowEdit)" type="button"
+                      (click)="viewPdf('formTask_inquiry_quotation/'+datas.quotation)" class="btn btn-default">檢視
+                    </button>
+                  </td>
+                  <td *ngIf="component[4].actions.allowEdit" style="text-align: center;"><a style="cursor: pointer;"
+                      (click)="deleteInquiryData(datas._id)"><i class="fas fa-trash-alt text-danger mr-2"></i></a></td>
+
+                </tr>
+              </ng-container>
+
+            </tbody>
+          </table>
+        </app-detail-section>
+
+        <app-detail-section *ngIf="component[5].actions.allowShow" (refreshFormTaskDetailData)="refreshFormTaskDetailData()" [title]="component[5].title"
+          [action]="component[5].actions" [parentComp]="parentComp" [isMenuExtended]="true" [component]="component[5].btns">
+          <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger_inquiry"
+            class="table table-striped table-bordered table-hover nowrap" id="inquiry_table">
+            <thead>
+              <tr>
+                <th>廠商名稱</th>
+                <th>統一編號</th>
+                <th>聯絡人</th>
+                <th>電話號碼</th>
+                <th>既有/開發</th>
+                <th>不良紀錄</th>
+                <th>預付款</th>
+                <th>總金額</th>
+                <th>比例</th>
+                <th>備註</th>
+                <th>物料明細</th>
+                <th>報價單</th>
+                <th>選擇</th>
+              </tr>
+            </thead>
+            <tbody>
+              <ng-container *ngFor="let datas of inquiryData;let i = index;">
+                <tr *ngIf="datas.supplier!==null">
+                  <td>{{datas.supplier?.supplierName}}</td>
+                  <td>{{datas.supplier?.businessNo}}</td>
+                  <td>{{datas.supplier?.contactName}}</td>
+                  <td>{{datas.supplier?.contactPhone}}</td>
+                  <td>{{datas.new?"開發": "既有"}}</td>
+                  <td>{{datas.supplier?.badRecord}}</td>
+                  <td>{{datas.prepayMoney?datas.prepayMoney:'0'}}</td>
+                  <td>{{datas.subtotal?datas.subtotal:''}}</td>
+                  <td>{{datas.prepayMoney && datas.subtotal? ((datas.prepayMoney)/(datas.subtotal)*100).toFixed(2)+"%":
+                    '0%'}}</td>
+                  <td>{{datas.supplier?.remark}}</td>
+                  <td>
+                    <button type="button" class="btn btn-default"
+                      (click)="openModal('inquiry-detail-add', datas._id, {allowEdit: false, allowShow: true })">檢視
+                    </button>
+                  </td>
+                  <td>
+                    <button type="button" class="btn btn-default"
+                      (click)="viewPdf('formTask_inquiry_quotation/'+datas.quotation)">檢視</button>
+                  </td>
+                  <td>
+
+                    <ng-container *ngIf="component[5].actions.allowEdit">
+                      <div>
+                        <label>
+                          <input type="checkbox"
+                            [checked]="datas.choosePriority?(datas.choosePriority===1?true:false):false"
+                            (click)="choosePriority($event, 1, datas._id)">
+                          正選
+                        </label>
+                      </div>
+                      <div>
+                        <label>
+                          <input type="checkbox"
+                            [checked]="datas.choosePriority?(datas.choosePriority===2?true:false):false"
+                            (click)="choosePriority($event, 2, datas._id)">
+                          備選
+                        </label>
+                      </div>
+                    </ng-container>
+
+                    <ng-container *ngIf="!(component[5].actions.allowEdit)">
+                      <div>
+                        <label>
+                          <input type="checkbox"
+                            [checked]="datas.choosePriority?(datas.choosePriority===1?true:false):false"
+                            (click)="choosePriority($event, 1, datas._id)" disabled>
+                          正選
+                        </label>
+                      </div>
+                      <div>
+                        <label>
+                          <input type="checkbox"
+                            [checked]="datas.choosePriority?(datas.choosePriority===2?true:false):false"
+                            (click)="choosePriority($event, 2, datas._id)" disabled>
+                          備選
+                        </label>
+                      </div>
+                    </ng-container>
+
+
+                  </td>
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
+        </app-detail-section>
+
+        <app-detail-section *ngIf="component[6].actions.allowShow" (refreshFormTaskDetailData)="refreshFormTaskDetailData()"  [title]="component[6].title"
+          [action]="component[6].actions" [parentComp]="parentComp" [isMenuExtended]="true" [component]="component[6].btns">
+          <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger_inquiry"
+            class="table table-striped table-bordered table-hover nowrap" id="inquiry_table">
+            <thead>
+              <tr>
+                <th>廠商名稱</th>
+                <th>統一編號</th>
+                <th>聯絡人</th>
+                <th>電話號碼</th>
+                <th>既有/開發</th>
+                <th>不良紀錄</th>
+                <th>預付款</th>
+                <th>總金額</th>
+                <th>比例</th>
+                <th>備註</th>
+                <th>物料明細</th>
+                <th>報價單</th>
+                <th>選擇</th>
+                <th>合約</th>
+              </tr>
+            </thead>
+            <tbody>
+              <ng-container *ngFor="let datas of inquiryData;let i = index;">
+                <tr *ngIf="datas.supplier===null || datas.choosePriority === 0? false: true">
+                  <td>{{datas.supplier?.supplierName}}</td>
+                  <td>{{datas.supplier?.businessNo}}</td>
+                  <td>{{datas.supplier?.contactName}}</td>
+                  <td>{{datas.supplier?.contactPhone}}</td>
+                  <td>{{datas.new?"開發": "既有"}}</td>
+                  <td>{{datas.supplier?.badRecord}}</td>
+                  <td>{{datas.prepayMoney?datas.prepayMoney:'0'}}</td>
+                  <td>{{datas.subtotal?datas.subtotal:''}}</td>
+                  <td>{{datas.prepayMoney && datas.subtotal? ((datas.prepayMoney)/(datas.subtotal)*100).toFixed(2)+"%":
+                    '0%'}}</td>
+                  <td>{{datas.supplier?.remark}}</td>
+                  <td>
+                    <button type="button" class="btn btn-default"
+                      (click)="openModal('inquiry-detail-add', datas._id, {allowEdit: false, allowShow: true })">檢視
+                    </button>
+                  </td>
+                  <td>
+                    <button type="button" class="btn btn-default"
+                      (click)="viewPdf('formTask_inquiry_quotation/'+datas.quotation)">檢視</button>
+                  </td>
+                  <td>
+                    <div>
+                      <label>
+                        <input type="checkbox"
+                          [checked]="datas.choosePriority?(datas.choosePriority===1?true:false):false"
+                          (click)="choosePriority($event, 1, datas._id)" disabled>
+                        正選
+                      </label>
+                    </div>
+                    <div>
+                      <label>
+                        <input type="checkbox"
+                          [checked]="datas.choosePriority?(datas.choosePriority===2?true:false):false"
+                          (click)="choosePriority($event, 2, datas._id)" disabled>
+                        備選
+                      </label>
+                    </div>
+                  </td>
+                  <td>
+                    <label *ngIf="datas.contract?true: false" for="">{{datas.contract?.contractNo}}</label>
+                    <div>
+                      <ng-container *ngIf="component[6].actions.allowEdit">
+                        <button *ngIf="!datas.contract || !datas.contract?.contractNo?true: false" type="button"
+                          class="btn btn-default"
+                          (click)="createContractNo(datas.supplierId, datas.supplier?.codeName, datas._id)">
+                          取號
+                        </button>
+                      </ng-container>
+                      <ng-container *ngIf="!(component[6].actions.allowEdit)">
+                        <button disabled *ngIf="!datas.contract || !datas.contract?.contractNo?true: false"
+                          type="button" class="btn btn-default">
+                          取號
+                        </button>
+                      </ng-container>
+
+                      <button type="button" *ngIf="datas.contract && component[6].actions.allowEdit?true: false"
+                        class="btn btn-info"
+                        (click)="openContractDetailAddModal(datas._id, datas.contract, component[6].actions)">編輯
+                      </button>
+                      <button type="button" *ngIf="datas.contract && !(component[6].actions.allowEdit)?true: false"
+                        class="btn btn-default"
+                        (click)="openContractDetailAddModal(datas._id, datas.contract, {allowEdit: false})">檢視
+                      </button>
+
+                    </div>
+                  </td>
+                </tr>
+              </ng-container>
+
+            </tbody>
+          </table>
+        </app-detail-section>
+

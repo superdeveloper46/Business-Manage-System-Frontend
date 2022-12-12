@@ -1,0 +1,108 @@
+<div class="modal-header">
+  <h4 class="modal-title">新增專案</h4>
+  <button type="button" class="btn btn-tool" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <i class="fas fa-times"></i>
+  </button>
+</div>
+<div class="modal-body">
+  <form class="form-horizontal" [formGroup]="CreateForm" method="post" action="">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label><code>*</code>完整工程名稱</label>
+          <input type="text"class="form-control" formControlName="formControlName">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label><code>*</code>工程代稱(左側選單)</label>
+          <input type="text"class="form-control" formControlName="projectShortName">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label><code>*</code>政府採購編號</label>
+          <input type="text"class="form-control" formControlName="projectGovNo">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label><code>*</code>得標金額</label>
+          <input type="text"class="form-control" formControlName="bidAmount">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label><code>*</code>工程所在縣市</label>
+          <ng-select2 [data]="s2Locations" [width]="'100%'" [placeholder]="'請選擇'"
+          (valueChanged)="onChange_Locations($event)" [value]="locationAreaList_locationName" [allowClear]="true">
+        </ng-select2>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label><code>*</code>工程所在地區</label>
+          <ng-select2 [data]="s2Areas" [width]="'100%'" [placeholder]="'請選擇'" (valueChanged)="onChange_Areas($event)"  [value]="locationAreaList_areaName" [options]="options" [allowClear]="true">
+          </ng-select2>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label><code>*</code>專案預計開始日</label>
+          <input type="date"class="form-control" formControlName="beginDate">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label><code>*</code>專案預計結束日</label>
+          <input type="date"class="form-control"  formControlName="endDate">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="form-group">
+          <label><code>*</code>專案主管</label>
+          <ng-select2 [data]="s2Department1" [width]="'100%'" [placeholder]="'請選擇'" (valueChanged)="onChange_Departments($event,1)" [allowClear]="true">
+          </ng-select2>
+        </div>
+        <div class="form-group">
+          <ng-select2 [data]="s2Employee1" [width]="'100%'" [placeholder]="'請選擇'" (valueChanged)="onChange_Employees($event,1)" [allowClear]="true">
+          </ng-select2>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <label><code>*</code>工地主管</label>
+          <ng-select2 [data]="s2Department2" [width]="'100%'" [placeholder]="'請選擇'" (valueChanged)="onChange_Departments($event,2)" [allowClear]="true">
+          </ng-select2>
+        </div>
+        <div class="form-group">
+          <ng-select2 [data]="s2Employee2" [width]="'100%'" [placeholder]="'請選擇'" (valueChanged)="onChange_Employees($event,2)" [allowClear]="true">
+          </ng-select2>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <label><code>*</code>執行採發</label>
+          <ng-select2 [data]="s2Department3" [width]="'100%'" [placeholder]="'請選擇'" (valueChanged)="onChange_Departments($event,3)" [allowClear]="true">
+          </ng-select2>
+        </div>
+        <div class="form-group">
+          <ng-select2 [data]="s2Employee3" [width]="'100%'" [placeholder]="'請選擇'" (valueChanged)="onChange_Employees($event,3)" [allowClear]="true">
+          </ng-select2>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <div class="modal-footer justify-content-between">
+    <button type="button" class="btn btn-default" (click)="activeModal.close('Close click')">Close</button>
+    <button type="button" class="btn btn-info" (click)="addProject()">確定</button>
+  </div>

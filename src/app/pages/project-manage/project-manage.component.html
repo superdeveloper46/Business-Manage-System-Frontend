@@ -1,0 +1,177 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1>專案管理</h1>
+      </div>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a [routerLink]="['/']" href="/">Home</a></li>
+          <li class="breadcrumb-item active">專案管理</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+  <!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+  <!-- Default box -->
+  <div class="container-fluid">
+    <div class="card">
+      <div class="card-header">
+        <button type="button" *ngIf="this.RightObj['insert']" class="btn btn-info float-right" (click)="open('add', null)">
+          <i class="fas fa-plus"></i> 新增
+        </button>
+        <h5 class="modal-title">專案管理列表</h5>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-12">
+            <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"
+              class="table table-striped table-bordered table-hover nowrap">
+              <thead>
+                <tr>
+                  <th>階段</th>
+                  <th>工程名稱</th>
+                  <th>得標金額</th>
+                  <th>專案預定日</th>
+                  <th>相關人員</th>
+                  <th>材料送審</th>
+                  <th>施工日誌</th>
+                  <th>業主請款</th>
+                  <th>流程</th>
+                  <th>廠商合約</th>
+                  <th *ngIf="this.RightObj['update'] "  >編輯</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                <tr *ngFor="let item of projects">
+                  <td>
+                    <button type="button" data-widget="" data-toggle="tooltip" title="施工" class="btn btn-info"
+                      (click)="open('step', item)">施工</button>
+                  </td>
+                  <td>
+                    {{item.projectNo}}<br>
+                    {{item.projectName}} <br>
+
+                    <span class="badge bg-secondary">{{item.locationAreaList.locationName}}</span>
+                    <span *ngFor="let item2 of projects.locationAreaList.areaName" class="badge bg-secondary">{{item2}}</span>
+                  </td>
+                  <td>
+                    {{item.bidAmount}}
+                  </td>
+                  <td>
+                    起：{{item.beginDate}} <br>
+                    迄：{{item.endDate}}
+                  </td>
+                  <td>
+                    <span class="badge bg-secondary">專案主管</span><br>
+                    {{item.projectManagerId}}<br>
+                    <span class="badge bg-secondary">工地主任</span><br>
+                    {{item.engineerManagerId}}<br>
+                    <span class="badge bg-secondary">執行採發</span><br>
+                    {{item.purchaseManagerId}}
+                  </td>
+                  <td>
+                    <button type="button" data-widget="" data-toggle="tooltip" title="施工" class="btn btn-default"
+                      (click)="open('material', item)">明細(20%)</button>
+                  </td>
+                  <td>
+                    <button type="button" data-widget="" data-toggle="tooltip" title="施工" class="btn btn-default"
+                      (click)="open('DailyReportManage', item)">紀錄</button>
+                  </td>
+                  <td>
+                    <button type="button" data-widget="" data-toggle="tooltip" title="施工" class="btn btn-default"
+                      (click)="open('receipt', item)">請款紀錄</button>
+                  </td>
+                  <td>
+                    <button type="button" data-widget="" data-toggle="tooltip" title="施工" class="btn btn-default"
+                      (click)="open('progress', item)">流程明細</button>
+                  </td>
+                  <td>
+                    <button type="button" data-widget="" data-toggle="tooltip" title="施工" class="btn btn-default"
+                      (click)="open('contract', item)">合約(23)</button>
+                  </td>
+                  <td *ngIf="this.RightObj['update']  "  >
+                    <button type="button" *ngIf="this.RightObj['update']"  class="btn btn-tool" data-widget="editData" data-toggle="tooltip"
+                      title="修改專案" (click)="open('edit', item)">
+                      <i class="fas fa-edit"></i>
+                    </button>
+                    <!-- <button type="button" *ngIf="this.RightObj['delete']" class="btn btn-tool text-danger" data-widget="delData"
+                      data-toggle="tooltip" title="歸檔" (click)="open('', item)">
+                      <i class="fa fa-archive"></i>
+                    </button> -->
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <button type="button" data-widget="" data-toggle="tooltip" title="施工" class="btn btn-info"
+                      (click)="open('step', 0)">施工</button>
+                  </td>
+                  <td>
+                    CC001<br>
+                    大墩11街下水道工程 <br>
+                    <span class="badge bg-secondary">台中市</span>
+                    <span class="badge bg-secondary">北屯區</span>
+                  </td>
+                  <td>
+                    21,000,000
+                  </td>
+                  <td>
+                    起：2022/11/12 <br>
+                    迄：2023/12/31
+                  </td>
+                  <td>
+                    <span class="badge bg-secondary">專案主管</span><br>
+                    專案管理部- 謝小花<br>
+                    <span class="badge bg-secondary">工地主任</span><br>
+                    工程部-洪秀柱<br>
+                    <span class="badge bg-secondary">執行採發</span><br>
+                    採發部-江啟瑞
+                  </td>
+                  <td>
+                    <button type="button" data-widget="" data-toggle="tooltip" title="施工" class="btn btn-default"
+                      (click)="open('material', 0)">明細(20%)</button>
+                  </td>
+                  <td>
+                    <button type="button" data-widget="" data-toggle="tooltip" title="施工" class="btn btn-default"
+                      (click)="open('DailyReportManage', 0)">紀錄</button>
+                  </td>
+                  <td>
+                    <button type="button" data-widget="" data-toggle="tooltip" title="施工" class="btn btn-default"
+                      (click)="open('receipt', 0)">請款紀錄</button>
+                  </td>
+                  <td>
+                    <button type="button" data-widget="" data-toggle="tooltip" title="施工" class="btn btn-default"
+                      (click)="open('progress', 0)">流程明細</button>
+                  </td>
+                  <td>
+                    <button type="button" data-widget="" data-toggle="tooltip" title="施工" class="btn btn-default"
+                      (click)="open('contract', 0)">合約(23)</button>
+                  </td>
+                  <td *ngIf="this.RightObj['update']"  >
+                    <button type="button" *ngIf="this.RightObj['update']" class="btn btn-tool" data-widget="editData" data-toggle="tooltip"
+                      title="修改專案" (click)="open('edit', 0)">
+                      <i class="fas fa-edit"></i>
+                    </button>
+                    <!-- <button type="button" *ngIf="this.RightObj['delete']" class="btn btn-tool text-danger" data-widget="delData"
+                      data-toggle="tooltip" title="歸檔" (click)="open('', 0)">
+                      <i class="fa fa-archive"></i>
+                    </button> -->
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <!-- /.card-body -->
+    </div>
+  </div>
+  <!-- /.card -->
+</section>
+<!-- /.content -->

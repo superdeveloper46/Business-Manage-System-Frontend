@@ -1,0 +1,25 @@
+<div #ProjectList>
+  <div class="row" id="p_{{k3}}">
+    <div class="col-md-5">
+      <div class="form-group">
+        <input type="text" class="form-control"  name="proposalItem"
+          data-label="計劃書送審項目{{k3+1}}:項次名稱" class="form-control updateDataByColumn updateDataByListCollection"
+          data-subdocId="{{id}}"   data-collectionName="proposal">
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <input type="text" class="form-control" name="proposalName"
+          data-label="計劃書送審項目{{k3+1}}:項次名稱" class="form-control updateDataByColumn updateDataByListCollection"
+          data-subdocId="{{id}}"   data-collectionName="proposal">
+      </div>
+    </div>
+    <div class="col-md-1">
+      <div class="form-group">
+        <button type="button" class="btn btn-tool text-danger" data-toggle="tooltip" title="刪除" (click)="del(k3)">
+          <i class="fas fa-trash-alt"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

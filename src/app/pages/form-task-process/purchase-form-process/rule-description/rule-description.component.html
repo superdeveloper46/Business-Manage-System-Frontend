@@ -1,0 +1,32 @@
+<div class="modal-header">
+    <h4 class="modal-title">新增工程範圍</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.close('Close click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <form class="form-horizontal" [formGroup]="createForm" method="post" action="">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group" *ngIf="actions.allowEdit">
+                    <label>選擇範本</label>
+                    <ng-select2
+                        width="100%"
+                        (valueChanged)="valueChanged($event)">
+                        <option *ngFor="let data of rule" [value]="data._id">{{data.ruleDescriptionTitle}}</option>
+                    </ng-select2>
+                </div>
+                <div class="form-group">
+                    <div class="form-group">
+                        <angular-editor formControlName="htmlCode" [config]="config"></angular-editor>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="modal-footer justify-content-between">
+    <button type="button" class="btn btn-default btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
+    <button *ngIf="actions.allowEdit" class="btn btn-info" (click)="saveRuleDescription()">Confirm</button>
+</div>

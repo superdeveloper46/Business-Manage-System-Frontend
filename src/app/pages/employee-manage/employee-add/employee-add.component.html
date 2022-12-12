@@ -1,0 +1,132 @@
+<div class="modal-header">
+  <h4 class="modal-title">新增員工</h4>
+  <button type="button" class="btn btn-tool" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <i class="fas fa-times"></i>
+  </button>
+</div>
+<div class="modal-body">
+  <form class="form-horizontal" [formGroup]="CreateForm" method="post" action="">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label><code>*</code>員工編號</label>
+          <input type="text" formControlName="account" class="form-control">
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="form-group">
+          <label><code>*</code>姓名</label>
+          <input type="text" formControlName="empName" class="form-control">
+        </div>
+      </div>
+      </div>
+      <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label><code>*</code>身分證字號</label>
+          <input type="text" formControlName="personalNo" class="form-control">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label><code>*</code>性別</label>
+          <ng-select2
+          [data]="s2Genders"
+          [width]="'100%'"
+          [placeholder]="'請選擇性別'"
+          (valueChanged)="onChange_Genders($event)"
+          formControlName="gender"
+          [allowClear]="true"
+          >
+      </ng-select2>
+        </div>
+      </div>
+    </div>
+      <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label><code>*</code>生日</label>
+          <input type="date" formControlName="birthday" class="form-control">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label><code>*</code>公司信箱</label>
+          <input type="text" formControlName="email" class="form-control">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label><code>*</code>部門</label>
+          <ng-select2
+          [data]="s2Departments"
+          [value]="DepartmentIdv"
+          [width]="'100%'"
+          [placeholder]="'請選擇部門'"
+          (valueChanged)="onChange_Departments($event)"
+          formControlName="departmentId"
+          [allowClear]="true"
+          >
+      </ng-select2>
+
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label><code>*</code>職務</label>
+          <ng-select2
+          [data]="s2Jobs"
+          [width]="'100%'"
+          [placeholder]="'請選擇功能職務'"
+          (valueChanged)="onChange_Jobs($event)"
+          [allowClear]="true"
+          >
+      </ng-select2>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label><code>*</code>到職日</label>
+          <input type="date" formControlName="onBoardDate" class="form-control">
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="form-group">
+          <br>
+          <label>
+            <input type="checkbox" [value]="true" formControlName="boss">
+            是否為主管
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group">
+          <label>印章電子檔上傳(建議尺寸 200x200px)</label>
+          <div class="input-group">
+            <div class="custom-file">
+              <input #fileUpload type="file" class="custom-file-input" accept=".jpg,.png"
+                (change)="fileSelected($event)">
+              <label class="custom-file-label" for="fileUpload">{{fileName ? fileName : '請上傳檔案'}}</label>
+            </div>
+          </div>
+          <br>
+          <img id="Img" style="max-width: 100%;" />
+        </div>
+      </div>
+    </div>
+
+  </form>
+
+  <div class="modal-footer justify-content-between">
+    <button type="button" class="btn btn-default" (click)="closeModal()">Close</button>
+    <button type="button" class="btn btn-info" (click)="addEmployee()">確定</button>
+  </div>

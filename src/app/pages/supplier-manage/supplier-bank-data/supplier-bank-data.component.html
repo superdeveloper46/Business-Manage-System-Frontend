@@ -1,0 +1,38 @@
+<div class="modal-header">
+  <h4 class="modal-title">銀行資料</h4>
+
+</div>
+<div class="modal-body">
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table table-striped table-bordered table-hover">
+        <thead>
+          <tr>
+            <th>銀行名稱 </th>
+            <th>分行名稱 </th>
+            <th>戶名</th>
+            <th>銀行帳號</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{supplier.bankName}}</td>
+            <td>{{supplier.supplierBankData.branchName}}</td>
+            <td>{{supplier.supplierBankData.accountNo}}</td>
+            <td>{{supplier.supplierBankData.userName}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <img src="{{this.imgsrc}}" style="width:100%">
+    </div>
+  </div>
+</div>
+
+<div class="modal-footer justify-content-between">
+  <button type="button" class="btn btn-default" (click)="activeModal.close('Close click')">Close</button>
+  <button type="button" class="btn btn-info" (click)="activeModal.close('Close click')">確定</button>
+</div>

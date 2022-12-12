@@ -1,0 +1,20 @@
+<div class="modal-header">
+  <h4 class="modal-title">業務範圍</h4>
+
+</div>
+<div class="modal-body">
+    <div class="row">
+      <div class="col-md-12" *ngFor="let item of supplier.locationAreaList let index=index;">
+        <strong><i class="fas fa-map-marker-alt mr-1"></i> {{item.locationCName}}</strong>
+        <p class="text-muted">
+          <span class="badge bg-secondary mr-2" *ngFor="let item2 of item.areaNameList">{{item2}}</span>
+        </p>
+
+      <hr *ngIf="index !== supplier.locationAreaList.length-1">
+    </div>
+    </div>
+
+  <div class="modal-footer justify-content-between">
+    <button type="button" class="btn btn-default" (click)="activeModal.close('Close click')">Close</button>
+    <button type="button" class="btn btn-info" (click)="activeModal.close('Close click')">確定</button>
+  </div>

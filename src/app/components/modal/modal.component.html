@@ -1,0 +1,28 @@
+<ng-template #modal let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title">{{ modalConfig.modalTitle }}</h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">×</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <ng-content></ng-content>
+    </div>
+    <div class="modal-footer">
+      <button type="button"
+            class="btn btn-outline-primary"
+            (click)="close()"
+            *ngIf="modalConfig.hideCloseButton === undefined || !modalConfig.hideCloseButton()"
+            [disabled]="modalConfig.disableCloseButton !== undefined && modalConfig.disableCloseButton()">
+      {{ modalConfig.closeButtonLabel }}
+      </button>
+      <button type="button"
+            class="btn btn-outline-secondary"
+            (click)="dismiss()"
+            *ngIf="modalConfig.hideDismissButton === undefined || !modalConfig.hideDismissButton()"
+            [disabled]="modalConfig.disableDismissButton !== undefined && modalConfig.disableDismissButton()">
+      {{ modalConfig.dismissButtonLabel }}
+      </button>
+    </div>
+  </ng-template>
+
